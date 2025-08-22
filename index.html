@@ -1,135 +1,197 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>All-in-One 보험 CRM</title>
+  <title>All-in-One Insurance CRM</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <style>
     html {
       scroll-behavior: smooth;
     }
     section {
-      padding-top: 5rem;
-      padding-bottom: 5rem;
+      padding-top: 8rem;
+      padding-bottom: 8rem;
+    }
+    .text-balance {
+      text-wrap: balance;
+    }
+    @media (max-width: 768px) {
+      section {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+      }
     }
   </style>
 </head>
-<body class="font-sans bg-white text-gray-800">
+<body class="font-sans bg-gray-50 text-gray-800">
 
-  <!-- Hero Section -->
-  <section class="bg-gradient-to-b from-blue-600 to-blue-400 text-white text-center px-4">
-    <h1 class="text-4xl font-bold mb-4">보험 설계사를 위한 올인원 CRM</h1>
-    <p class="text-lg mb-6">단순한 관리가 아닙니다. 기억하고, 연결하고, 실행하는 완벽한 파트너.</p>
-    <div class="flex justify-center gap-4">
-      <a href="#get-started" class="bg-white text-blue-600 font-semibold px-6 py-3 rounded shadow">📌 지금 시작하기</a>
-      <a href="#demo" class="border border-white px-6 py-3 rounded">🎥 데모 보기</a>
-    </div>
-  </section>
-
-  <!-- Problem Section -->
-  <section class="bg-gray-50 px-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4">이런 문제, 겪어보셨나요?</h2>
-    <ul class="list-disc pl-6 space-y-2">
-      <li>고객 정보가 메모장, 문자, 엑셀 등에 흩어져 있음</li>
-      <li>생일이나 갱신일을 놓쳐 고객과의 기회를 잃음</li>
-      <li>상품별 상태 관리가 어려워 반복 실수</li>
-      <li>가족 보험 설계 시 관계 파악이 번거로움</li>
-      <li>추천/소개 연결이 약해짐</li>
-    </ul>
-    <p class="mt-6 font-semibold text-lg">→ 그래서, 이 CRM이 필요합니다.</p>
-  </section>
-
-  <!-- Value Section -->
-  <section class="bg-white px-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4">핵심 가치는 <span class="text-blue-600">"기억, 연결, 실행"</span>입니다.</h2>
-    <div class="grid md:grid-cols-3 gap-6 text-center">
-      <div>
-        <div class="text-4xl">💡</div>
-        <p class="font-semibold">기억</p>
-        <p>고객과 중요한 날짜를 기억합니다.</p>
-      </div>
-      <div>
-        <div class="text-4xl">🔗</div>
-        <p class="font-semibold">연결</p>
-        <p>고객, 가족, 상품 간 관계를 잇습니다.</p>
-      </div>
-      <div>
-        <div class="text-4xl">🚀</div>
-        <p class="font-semibold">실행</p>
-        <p>할 일을 자동으로 처리합니다.</p>
+  <section class="bg-gradient-to-br from-blue-600 to-blue-400 text-white text-center px-4">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 text-balance">
+        An All-in-One CRM, Designed for Insurance Agents.
+      </h1>
+      <p class="text-xl md:text-2xl mb-10 opacity-90 text-balance">
+        It’s more than just a tool. It’s your complete partner to **Remember, Connect, and Execute.**
+      </p>
+      <div class="flex flex-col md:flex-row justify-center gap-4">
+        <a href="#features" class="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <i class="fas fa-arrow-right mr-2"></i> Explore Features
+        </a>
+        <a href="#differentiators" class="text-white border border-white px-8 py-4 rounded-full hover:bg-white hover:bg-opacity-10 transition-colors duration-300">
+          <i class="fas fa-chart-line mr-2"></i> See the Difference
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Feature Section -->
-  <section class="bg-gray-50 px-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4">주요 기능 소개</h2>
-    <ul class="list-disc pl-6 space-y-3">
-      <li><strong>고객 정보 자동 정리</strong> – 연도 기반 ID 생성 및 상태별 필터</li>
-      <li><strong>가족 정보 자동 연결</strong> – 남편·아내 보험 가입 자동 연동</li>
-      <li><strong>To-Do 기능</strong> – 고객별 해야 할 일, 주간/일간 자동 분류</li>
-      <li><strong>생일 및 기념일 자동 알림</strong> – 놓치지 않고 관계 유지</li>
-      <li><strong>상품별 정보 통합 뷰</strong> – 8가지 보험을 하나의 뷰에서 확인</li>
-      <li><strong>업셀링 기회 제공</strong> – Prospect 상태로 상품 추천 재접근</li>
-    </ul>
-  </section>
-
-  <!-- Use Case Section -->
-  <section class="bg-white px-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4">실제 활용 시나리오</h2>
-    <ul class="list-disc pl-6 space-y-2">
-      <li><strong>신규 상담</strong>: Prospect로 등록 → 상담 메모 남기기 → 추후 자동 알림</li>
-      <li><strong>기존 고객</strong>: 이름만 검색해도 가입 상품·가족 관계·메모 확인</li>
-      <li><strong>생일 알림</strong>: 오늘 또는 이번 주 생일 고객 자동 표시</li>
-      <li><strong>업셀링</strong>: 아직 가입 전인 상품 필드 통해 자연스러운 제안</li>
-    </ul>
-  </section>
-
-  <!-- Differentiation Section -->
-  <section class="bg-gray-50 px-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4">다른 CRM과의 차별점</h2>
-    <div class="overflow-x-auto">
-      <table class="table-auto w-full border">
-        <thead class="bg-blue-100">
-          <tr>
-            <th class="border px-4 py-2">항목</th>
-            <th class="border px-4 py-2">일반 CRM</th>
-            <th class="border px-4 py-2">AppSheet 보험 CRM</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="border px-4 py-2">보험 상품별 뷰 제공</td><td class="border px-4 py-2">❌</td><td class="border px-4 py-2">✅ 인라인 보기</td></tr>
-          <tr><td class="border px-4 py-2">가족 관계 연결</td><td class="border px-4 py-2">❌</td><td class="border px-4 py-2">✅ 자동 연결</td></tr>
-          <tr><td class="border px-4 py-2">생일/갱신일 알림</td><td class="border px-4 py-2">일부</td><td class="border px-4 py-2">✅ 자동 캘린더</td></tr>
-          <tr><td class="border px-4 py-2">상품 상태 구분</td><td class="border px-4 py-2">❌</td><td class="border px-4 py-2">✅ Prospect 등 자동 분류</td></tr>
-          <tr><td class="border px-4 py-2">사용 용이성</td><td class="border px-4 py-2">복잡</td><td class="border px-4 py-2">✅ 앱처럼 직관적</td></tr>
-        </tbody>
-      </table>
+  <section class="bg-white px-6">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-4">Are you tired of juggling?</h2>
+      <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+        Managing clients shouldn’t be a challenge. We help you solve the most common frustrations.
+      </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-6 rounded-2xl shadow-sm">
+          <div class="text-4xl mb-4 text-blue-500">
+            <i class="fas fa-folder-open"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Scattered Data</h3>
+          <p class="text-sm text-gray-500">Customer information is disorganized across notepads and spreadsheets.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-2xl shadow-sm">
+          <div class="text-4xl mb-4 text-blue-500">
+            <i class="fas fa-calendar-times"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Missed Opportunities</h3>
+          <p class="text-sm text-gray-500">You've lost clients by forgetting key dates like birthdays or renewals.</p>
+        </div>
+        <div class="bg-gray-50 p-6 rounded-2xl shadow-sm">
+          <div class="text-4xl mb-4 text-blue-500">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Referral Gaps</h3>
+          <p class="text-sm text-gray-500">Your network isn't growing as it should due to weak referral tracking.</p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Recommendation Section -->
-  <section class="bg-white px-6 max-w-5xl mx-auto">
-    <h2 class="text-2xl font-bold mb-4">이런 분께 추천합니다</h2>
-    <ul class="list-disc pl-6 space-y-2">
-      <li>고객 수 50명 이상으로 복잡하게 느껴지는 분</li>
-      <li>혼자서 일하지만 체계적인 관리가 필요한 분</li>
-      <li>가족 단위로 보험 설계 중이신 분</li>
-      <li>소개 및 재계약을 놓치고 싶지 않은 분</li>
-    </ul>
+  <section class="bg-gray-100 px-6">
+    <div class="max-w-5xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-4">Our Core Values</h2>
+      <p class="text-xl text-gray-600 mb-12">
+        **Remember. Connect. Execute.**
+      </p>
+      <div class="grid md:grid-cols-3 gap-12">
+        <div>
+          <i class="fas fa-lightbulb text-5xl text-blue-600 mb-4"></i>
+          <h3 class="text-2xl font-semibold mb-2">Remember</h3>
+          <p class="text-gray-600">We keep track of every client detail and important date, so you don't have to.</p>
+        </div>
+        <div>
+          <i class="fas fa-link text-5xl text-blue-600 mb-4"></i>
+          <h3 class="text-2xl font-semibold mb-2">Connect</h3>
+          <p class="text-gray-600">Seamlessly link family members and policies to build a comprehensive client view.</p>
+        </div>
+        <div>
+          <i class="fas fa-rocket text-5xl text-blue-600 mb-4"></i>
+          <h3 class="text-2xl font-semibold mb-2">Execute</h3>
+          <p class="text-gray-600">Automate your to-dos and stay ahead with proactive notifications.</p>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- CTA -->
-  <section id="get-started" class="bg-blue-600 text-white text-center px-6 py-12">
-    <h2 class="text-3xl font-bold mb-4">지금 바로 시작해보세요</h2>
-    <p class="mb-4">설치 없이, 누구나 쉽게. 모바일, 태블릿, PC 모두 지원.</p>
-    <a href="mailto:titusdatalabs@gmail.com" class="bg-white text-blue-600 px-6 py-3 rounded font-semibold">📩 상담 문의</a>
+  <section id="features" class="bg-white px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-4xl font-bold mb-4">Features that work for you.</h2>
+      <p class="text-xl text-gray-600 mb-12">
+        A suite of tools designed to simplify your workflow and grow your business.
+      </p>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div class="space-y-6">
+          <div class="p-6 bg-gray-100 rounded-xl shadow-sm">
+            <h3 class="text-xl font-semibold mb-2">Intelligent Client Management</h3>
+            <p class="text-gray-600">Automatic ID creation, status filters, and a single dashboard for all client data.</p>
+          </div>
+          <div class="p-6 bg-gray-100 rounded-xl shadow-sm">
+            <h3 class="text-xl font-semibold mb-2">Automated To-Do List</h3>
+            <p class="text-gray-600">Daily and weekly task lists are generated automatically, keeping you on track.</p>
+          </div>
+          <div class="p-6 bg-gray-100 rounded-xl shadow-sm">
+            <h3 class="text-xl font-semibold mb-2">Integrated Policy View</h3>
+            <p class="text-gray-600">See all 8 policy types at a glance, eliminating the need to switch between screens.</p>
+          </div>
+        </div>
+        <div class="bg-gray-200 rounded-3xl overflow-hidden flex items-center justify-center p-8">
+          <div class="w-full h-72 bg-gray-300 rounded-xl flex items-center justify-center text-gray-500 font-bold">
+            [ Placeholder for Screenshot / Video ]
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="text-center text-gray-500 text-sm py-4">
-    ⓒ 2025 AppSheet 보험 CRM. All rights reserved.
+  <section id="differentiators" class="bg-gray-100 px-6">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-4xl font-bold text-center mb-12">The AppSheet Difference</h2>
+      <div class="overflow-x-auto bg-white rounded-3xl p-6 shadow-xl">
+        <table class="table-auto w-full border-collapse">
+          <thead>
+            <tr class="text-left bg-gray-100">
+              <th class="px-4 py-4 font-semibold text-gray-500 rounded-tl-xl">Feature</th>
+              <th class="px-4 py-4 font-semibold text-gray-500">Standard CRM</th>
+              <th class="px-4 py-4 font-semibold text-gray-500 rounded-tr-xl">Our CRM</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-b border-gray-200">
+              <td class="px-4 py-4">Insurance Product View</td>
+              <td class="px-4 py-4 text-center text-red-500 font-bold">❌</td>
+              <td class="px-4 py-4 text-center text-green-500 font-bold">✅</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="px-4 py-4">Family Linking</td>
+              <td class="px-4 py-4 text-center text-red-500 font-bold">❌</td>
+              <td class="px-4 py-4 text-center text-green-500 font-bold">✅</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="px-4 py-4">Automated Notifications</td>
+              <td class="px-4 py-4 text-center text-yellow-500 font-bold">Partial</td>
+              <td class="px-4 py-4 text-center text-green-500 font-bold">✅</td>
+            </tr>
+            <tr class="border-b border-gray-200">
+              <td class="px-4 py-4">Product Status Categories</td>
+              <td class="px-4 py-4 text-center text-red-500 font-bold">❌</td>
+              <td class="px-4 py-4 text-center text-green-500 font-bold">✅</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-4">Ease of Use</td>
+              <td class="px-4 py-4 text-center text-red-500 font-bold">Complex</td>
+              <td class="px-4 py-4 text-center text-green-500 font-bold">✅</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="bg-blue-600 text-white text-center px-6">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4">Ready to Transform Your Business?</h2>
+      <p class="text-lg md:text-xl mb-8 opacity-90">
+        Stop managing, start selling. Our CRM is easy to set up and works on any device.
+      </p>
+      <a href="mailto:titusdatalabs@gmail.com" class="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300">
+        <i class="fas fa-envelope mr-2"></i> Schedule a Consultation
+      </a>
+    </div>
+  </section>
+
+  <footer class="text-center text-gray-400 text-sm py-8">
+    <p>ⓒ 2025 AppSheet Insurance CRM. All rights reserved.</p>
   </footer>
 
 </body>
