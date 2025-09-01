@@ -542,54 +542,28 @@
     </div>
   </div> -->
 
-<div id="demoModal" class="fixed inset-0 z-[60] hidden">
-  <div class="absolute inset-0 bg-black/60"></div>
-  
-  <div class="relative mx-auto mt-20 w-[92%] max-w-3xl rounded-2xl overflow-hidden shadow-2xl">
-    
-    <div class="bg-black aspect-video">
-      <iframe id="demoFrame"
-              class="w-full h-full"
-              src="https://www.youtube.com/embed/3b3RaLwLHnA?autoplay=1"
-              title="50-sec Demo"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen></iframe>
+  <!-- Demo Modal -->
+  <div id="demoModal" class="fixed inset-0 z-[60] hidden">
+    <div class="absolute inset-0 bg-black/60"></div>
+    <div class="relative mx-auto mt-20 w-[92%] max-w-3xl rounded-2xl overflow-hidden shadow-2xl">
+      <div class="bg-black aspect-video">
+        <!-- 유튜브 영상 임베드 -->
+        <iframe 
+          id="demoVideo" 
+          class="w-full h-full"
+          src="https://www.youtube.com/embed/3b3RaLwLHnA?autoplay=1&mute=0" 
+          title="YouTube video player" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen>
+        </iframe>
+      </div>
+      <button id="closeDemo" class="absolute -right-3 -top-3 bg-white rounded-full shadow p-2">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
     </div>
-    
-    <button id="closeDemo" class="absolute -right-3 -top-3 bg-white text-gray-800 rounded-full shadow-lg p-2 hover:bg-gray-100">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
   </div>
-</div>
 
-<button id="openDemo" class="px-6 py-3 bg-blue-500 text-white font-bold rounded-lg shadow-md hover:bg-blue-600">
-  Open Demo
-</button>
-
-<script>
-  // DOM Elements
-  const openDemo = document.getElementById('openDemo');
-  const closeDemo = document.getElementById('closeDemo');
-  const demoModal = document.getElementById('demoModal');
-  const demoFrame = document.getElementById('demoFrame');
-
-  // Open Modal
-  openDemo?.addEventListener('click', () => {
-    demoModal.classList.remove('hidden');
-    // Set video source to play the video with autoplay
-    demoFrame.src = "https://www.youtube.com/embed/3b3RaLwLHnA?autoplay=1";
-  });
-
-  // Close Modal
-  closeDemo?.addEventListener('click', () => {
-    demoModal.classList.add('hidden');
-    // Stop the video by removing the source
-    demoFrame.src = "";
-  });
-</script>
 
 
   
