@@ -520,49 +520,58 @@
     </a>
   </div>
 
-<!--   <!-- Demo Modal -->
-  <div id="demoModal" class="fixed inset-0 z-[60] hidden">
-    <div class="absolute inset-0 bg-black/60"></div>
-    <div class="relative mx-auto mt-20 w-[92%] max-w-3xl rounded-2xl overflow-hidden shadow-2xl">
-      <div class="bg-black aspect-square">
-        <!-- Replace with your mp4/webm/gif -->
-        <iframe id="demoFrame"
-              class="w-full h-full"
-              data-src="https://drive.google.com/file/d/1DyLaJWtgrR8OsVrzZkn-l4UMPRtEkoi4/preview"
-              src=""
-              allow="autoplay"
-              allowfullscreen
-              referrerpolicy="no-referrer-when-downgrade"></iframe>
-<!--         <video id="demoVideo" class="w-full h-full" 
-                src="https://drive.google.com/uc?export=download&id=1DyLaJWtgrR8OsVrzZkn-l4UMPRtEkoi4" autoplay playsinline></video> -->
-      </div>
-      <button id="closeDemo" class="absolute -right-0 -top-0 bg-white rounded-full shadow p-2">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
-  </div> -->
 
-  <!-- Demo Modal -->
-  <div id="demoModal" class="fixed inset-0 z-[60] hidden">
-    <div class="absolute inset-0 bg-black/60"></div>
+
+<div id="demoModal" class="fixed inset-0 z-[60] hidden">
+  <!-- 배경 오버레이 -->
+  <div class="absolute inset-0 bg-black/60"></div>
+
+    <!-- 컨텐츠 -->
     <div class="relative mx-auto mt-20 w-[92%] max-w-3xl rounded-2xl overflow-hidden shadow-2xl">
       <div class="bg-black aspect-video">
         <!-- 유튜브 영상 임베드 -->
-        <iframe 
-          id="demoVideo" 
+        <iframe
+          id="demoVideo"
           class="w-full h-full"
-          src="https://www.youtube.com/embed/3b3RaLwLHnA?autoplay=1&mute=0" 
-          title="YouTube video player" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
+          title="YouTube video player"
+          frameborder="0"
+          src="https://www.youtube-nocookie.com/embed/3b3RaLwLHnA?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1"
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write"
+          allowfullscreen
+          referrerpolicy="strict-origin-when-cross-origin">
         </iframe>
       </div>
+  
+      <!-- 닫기 버튼 -->
       <button id="closeDemo" class="absolute -right-3 -top-3 bg-white rounded-full shadow p-2">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
   </div>
+  
+  
+    <script>
+    const modal = document.getElementById('demoModal');
+    const iframe = document.getElementById('demoVideo');
+    const closeBtn = document.getElementById('closeDemo');
+  
+    // 필요 시: 열 때 src 주입 (초기에는 빈 src로 두고 열 때 넣는 방식)
+    function openModal() {
+      if (!iframe.src) {
+        iframe.src = "https://www.youtube-nocookie.com/embed/3b3RaLwLHnA?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1";
+      }
+      modal.classList.remove('hidden');
+    }
+  
+    // 닫을 때 정지 효과(완전 리셋)
+    closeBtn.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      const current = iframe.src;
+      iframe.src = "";          // 정지
+      setTimeout(() => { iframe.src = current; }, 0); // 다음에 열면 다시 재생
+    });
+  </script>
+
 
 
 
