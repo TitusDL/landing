@@ -526,8 +526,15 @@
     <div class="relative mx-auto mt-20 w-[92%] max-w-3xl rounded-2xl overflow-hidden shadow-2xl">
       <div class="bg-black aspect-square">
         <!-- Replace with your mp4/webm/gif -->
-        <video id="demoVideo" class="w-full h-full" 
-                src="https://drive.google.com/uc?export=download&id=1DyLaJWtgrR8OsVrzZkn-l4UMPRtEkoi4" autoplay playsinline></video>
+        <iframe id="demoFrame"
+              class="w-full h-full"
+              data-src="https://drive.google.com/file/d/1DyLaJWtgrR8OsVrzZkn-l4UMPRtEkoi4/preview"
+              src=""
+              allow="autoplay"
+              allowfullscreen
+              referrerpolicy="no-referrer-when-downgrade"></iframe>
+<!--         <video id="demoVideo" class="w-full h-full" 
+                src="https://drive.google.com/uc?export=download&id=1DyLaJWtgrR8OsVrzZkn-l4UMPRtEkoi4" autoplay playsinline></video> -->
       </div>
       <button id="closeDemo" class="absolute -right-0 -top-0 bg-white rounded-full shadow p-2">
         <i class="fa-solid fa-xmark"></i>
