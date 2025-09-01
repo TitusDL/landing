@@ -522,54 +522,112 @@
 
 
 
-<div id="demoModal" class="fixed inset-0 z-[60] hidden">
-  <!-- 배경 오버레이 -->
-  <div class="absolute inset-0 bg-black/60"></div>
-
-    <!-- 컨텐츠 -->
+  <div id="demoModal" class="fixed inset-0 z-[60] hidden">
+    <div class="absolute inset-0 bg-black/60"></div>
+  
     <div class="relative mx-auto mt-20 w-[92%] max-w-3xl rounded-2xl overflow-hidden shadow-2xl">
-      <div class="bg-black aspect-video">
-        <!-- 유튜브 영상 임베드 -->
-        <iframe
-          id="demoVideo"
-          class="w-full h-full"
-          title="YouTube video player"
-          frameborder="0"
-          src="https://www.youtube-nocookie.com/embed/3b3RaLwLHnA?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1"
-          allow="autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write"
-          allowfullscreen
-          referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
+      <div class="relative bg-black aspect-video">
+        <div id="playerContainer" class="w-full h-full"></div>
+  
+        <!-- 소리 켜기 오버레이 -->
+        <button id="unmuteOverlay"
+          class="hidden absolute inset-0 flex items-center justify-center text-white text-lg font-semibold bg-black/40 backdrop-blur-sm">
+          ▶️ Tap to unmute
+        </button>
       </div>
   
-      <!-- 닫기 버튼 -->
-      <button id="closeDemo" class="absolute -right-3 -top-3 bg-white rounded-full shadow p-2">
+      <button id="closeDemo" class="absolute -right-0 -top-0 bg-white rounded-full shadow p-2">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
   </div>
   
+  <!-- 모달 여는 트리거 버튼 예시 -->
+  <button id="openDemo" class="hidden">Open</button>
+  
+  <!-- YouTube IFrame API -->
+  <script src="https://www.youtube.com/iframe_api" referrerpolicy="strict-origin-when-cross-origin"></script>
   
     <script>
-    const modal = document.getElementById('demoModal');
-    const iframe = document.getElementById('demoVideo');
-    const closeBtn = document.getElementById('closeDemo');
+  let player, apiReady = false;
   
-    // 필요 시: 열 때 src 주입 (초기에는 빈 src로 두고 열 때 넣는 방식)
-    function openModal() {
-      if (!iframe.src) {
-        iframe.src = "https://www.youtube-nocookie.com/embed/3b3RaLwLHnA?autoplay=1&mute=1&playsinline=1&rel=0&modestbranding=1";
+  window.onYouTubeIframeAPIReady = () => { apiReady = true; };
+  
+  const modal = document.getElementById('demoModal');
+  const openBtn = document.getElementById('openDemo');     // 실제로 쓰는 열기 버튼에 바인딩하세요
+  const closeBtn = document.getElementById('closeDemo');
+  const overlayBtn = document.getElementById('unmuteOverlay');
+  
+  function ensurePlayer() {
+    if (player || !apiReady) return !!player;
+    player = new YT.Player('playerContainer', {
+      width: '100%',
+      height: '100%',
+      videoId: '3b3RaLwLHnA',
+      playerVars: {
+        autoplay: 1,        // 제스처 시점에 호출
+        mute: 1,            // 우선 무음으로 시작
+        playsinline: 1,
+        rel: 0,
+        modestbranding: 1,
+        origin: location.origin,
+        enablejsapi: 1
+      },
+      events: {
+        onReady: () => { /* no-op */ }
       }
-      modal.classList.remove('hidden');
-    }
-  
-    // 닫을 때 정지 효과(완전 리셋)
-    closeBtn.addEventListener('click', () => {
-      modal.classList.add('hidden');
-      const current = iframe.src;
-      iframe.src = "";          // 정지
-      setTimeout(() => { iframe.src = current; }, 0); // 다음에 열면 다시 재생
     });
+    return true;
+  }
+  
+  function openModalAndPlay() {
+    modal.classList.remove('hidden');
+  
+    // API 로드 대기 (간단 폴링)
+    const poll = setInterval(() => {
+      if (ensurePlayer()) {
+        clearInterval(poll);
+        // 1) 재생 + 2) 같은 클릭 흐름에서 언뮤트 시도 (대부분 브라우저 허용)
+        try {
+          player.playVideo();
+          player.unMute();
+          // 혹시 실패 대비: 즉시 소리가 안 난다면 오버레이 버튼 표시
+          setTimeout(() => {
+            if (player.isMuted && player.isMuted()) overlayBtn.classList.remove('hidden');
+          }, 300);
+        } catch (e) {
+          overlayBtn.classList.remove('hidden');
+        }
+      }
+    }, 50);
+  }
+  
+  function closeModal() {
+    modal.classList.add('hidden');
+    if (player) {
+      player.stopVideo();
+      player.mute(); // 다음에 열 때 정책 충돌 줄이기
+    }
+  }
+  
+  openBtn.addEventListener('click', openModalAndPlay);
+  closeBtn.addEventListener('click', closeModal);
+  
+  // 오버레이로 강제 언뮤트 (모바일 iOS 등에서 필요)
+  overlayBtn.addEventListener('click', () => {
+    try {
+      player.unMute();
+      player.playVideo();
+      overlayBtn.classList.add('hidden');
+    } catch (e) {
+      // 여전히 막히면 오버레이 유지
+    }
+  });
+  
+  // 필요 시 바깥 클릭으로 닫기
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
   </script>
 
 
