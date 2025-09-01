@@ -541,6 +541,25 @@
       </button>
     </div>
   </div>
+
+  <script>
+  const openDemo  = document.getElementById('openDemo');
+  const closeDemo = document.getElementById('closeDemo');
+  const demoModal = document.getElementById('demoModal');
+  const demoFrame = document.getElementById('demoFrame');
+
+  openDemo?.addEventListener('click', () => {
+    demoModal.classList.remove('hidden');
+    const base = demoFrame.getAttribute('data-src');
+    demoFrame.src = base + '?autoplay=1';  // 열면 자동재생 시도
+  });
+
+  closeDemo?.addEventListener('click', () => {
+    demoModal.classList.add('hidden');
+    demoFrame.src = '';  // 닫으면 영상 정지
+  });
+</script>
+
   
   
   
