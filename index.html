@@ -520,7 +520,7 @@
     </a>
   </div>
 
-  <!-- Demo Modal -->
+<!--   <!-- Demo Modal -->
   <div id="demoModal" class="fixed inset-0 z-[60] hidden">
     <div class="absolute inset-0 bg-black/60"></div>
     <div class="relative mx-auto mt-20 w-[92%] max-w-3xl rounded-2xl overflow-hidden shadow-2xl">
@@ -540,9 +540,29 @@
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
-  </div>
+  </div> -->
 
-  <script>
+<!-- Demo Modal -->
+<div id="demoModal" class="fixed inset-0 z-[60] hidden">
+  <div class="absolute inset-0 bg-black/60"></div>
+  <div class="relative mx-auto mt-20 w-[92%] max-w-3xl rounded-2xl overflow-hidden shadow-2xl">
+    <div class="bg-black aspect-video">
+      <!-- YouTube iframe -->
+      <iframe id="demoFrame"
+              class="w-full h-full"
+              src=""
+              title="50-sec Demo"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+    </div>
+    <button id="closeDemo" class="absolute -right-3 -top-3 bg-white rounded-full shadow p-2">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+</div>
+
+<script>
   const openDemo  = document.getElementById('openDemo');
   const closeDemo = document.getElementById('closeDemo');
   const demoModal = document.getElementById('demoModal');
@@ -550,15 +570,16 @@
 
   openDemo?.addEventListener('click', () => {
     demoModal.classList.remove('hidden');
-    const base = demoFrame.getAttribute('data-src');
-    demoFrame.src = base + '?autoplay=1';  // 열면 자동재생 시도
+    // 유투브 embed + autoplay
+    demoFrame.src = "https://www.youtube.com/embed/3b3RaLwLHnA?autoplay=1";
   });
 
   closeDemo?.addEventListener('click', () => {
     demoModal.classList.add('hidden');
-    demoFrame.src = '';  // 닫으면 영상 정지
+    demoFrame.src = ""; // 닫을 때 영상 정지
   });
 </script>
+
 
   
   
