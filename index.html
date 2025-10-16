@@ -657,15 +657,40 @@
   </script>
   
   <script>
-      window.addEventListener('message', (e) => {
-        // df-messenger에서 postMessage로 유저 메시지를 보냄 (환경에 따라 다를 수 있음)
-        const text = e?.data?.queryInput?.text?.text;
-        if (!text) return;
-        if (text === 'Go to pricing') document.getElementById('pricing')?.scrollIntoView({behavior:'smooth'});
-        if (text === 'Book a demo') document.getElementById('demo')?.scrollIntoView({behavior:'smooth'});
-        if (text === 'Contact form') document.getElementById('contact')?.scrollIntoView({behavior:'smooth'});
-      });
-    </script>
+  // 부드러운 스크롤 전역
+    document.documentElement.style.scrollBehavior = 'smooth';
+  
+    // 고정 헤더 높이 보정이 필요하면 CSS에: :target { scroll-margin-top: 80px; }
+    function scrollToId(id) {
+      var el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  
+    // df-messenger에서 들어오는 메시지 감지
+    // 브라우저/버전별로 payload 구조가 달라질 수 있어 여러 경로를 체크
+    window.addEventListener('message', function (e) {
+      try {
+        var txt =
+          e?.data?.queryInput?.text?.text ||
+          e?.data?.query?.queryText ||
+          e?.data?.text ||
+          '';
+  
+        if (!txt) return;
+  
+        var t = String(txt).trim().toLowerCase();
+  
+        if (t === 'go to pricing' || t === 'see pricing' || t === 'show pricing') {
+          scrollToId('pricing');
+        } else if (t === 'book a demo') {
+          scrollToId('demo');
+        } else if (t === 'contact form' || t === 'leave contact') {
+          scrollToId('contact');
+        }
+      } catch (_) {}
+    }, false);
+  </script>
+
 
   
   <df-messenger
