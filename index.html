@@ -35,6 +35,10 @@
     @keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
     .no-scrollbar::-webkit-scrollbar{display:none}
     .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+
+    html { scroll-behavior: smooth; }
+    /* 고정 헤더가 있으면 높이만큼 보정 */
+    :target { scroll-margin-top: 80px; }
   </style>
 
   <!-- SEO -->
@@ -657,38 +661,32 @@
   </script>
   
   <script>
-  // 부드러운 스크롤 전역
-    document.documentElement.style.scrollBehavior = 'smooth';
-  
-    // 고정 헤더 높이 보정이 필요하면 CSS에: :target { scroll-margin-top: 80px; }
     function scrollToId(id) {
-      var el = document.getElementById(id);
+      const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   
-    // df-messenger에서 들어오는 메시지 감지
-    // 브라우저/버전별로 payload 구조가 달라질 수 있어 여러 경로를 체크
-    window.addEventListener('message', function (e) {
-      try {
-        var txt =
-          e?.data?.queryInput?.text?.text ||
-          e?.data?.query?.queryText ||
-          e?.data?.text ||
-          '';
+    window.addEventListener('DOMContentLoaded', () => {
+      const df = document.querySelector('df-messenger');
+      if (!df) return;
   
-        if (!txt) return;
+      // 1) 칩 클릭(텍스트 전송 전) 시점에 바로 처리
+      df.addEventListener('df-chip-clicked', (e) => {
+        const t = (e.detail?.chip?.text || '').trim().toLowerCase();
+        if (t === 'show pricing' || t === 'see pricing' || t === 'go to pricing') scrollToId('pricing');
+        if (t === 'book a demo') scrollToId('demo');
+        if (t === 'leave contact' || t === 'contact form') scrollToId('contact');
+      });
   
-        var t = String(txt).trim().toLowerCase();
-  
-        if (t === 'go to pricing' || t === 'see pricing' || t === 'show pricing') {
-          scrollToId('pricing');
-        } else if (t === 'book a demo') {
-          scrollToId('demo');
-        } else if (t === 'contact form' || t === 'leave contact') {
-          scrollToId('contact');
-        }
-      } catch (_) {}
-    }, false);
+      // 2) 사용자가 직접 타이핑했을 때도 처리
+      df.addEventListener('df-request-sent', (e) => {
+        const t = (e.detail?.requestBody?.queryInput?.text?.text || '').trim().toLowerCase();
+        if (!t) return;
+        if (t === 'show pricing' || t === 'see pricing' || t === 'go to pricing') scrollToId('pricing');
+        if (t === 'book a demo') scrollToId('demo');
+        if (t === 'leave contact' || t === 'contact form') scrollToId('contact');
+      });
+    });
   </script>
 
 
