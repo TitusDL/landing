@@ -654,6 +654,18 @@
     });
   </script>
   
+  <script>
+    window.addEventListener('message', (e) => {
+      // df-messenger에서 postMessage로 유저 메시지를 보냄 (환경에 따라 다를 수 있음)
+      const text = e?.data?.queryInput?.text?.text;
+      if (!text) return;
+      if (text === 'Go to pricing') document.getElementById('pricing')?.scrollIntoView({behavior:'smooth'});
+      if (text === 'Book a demo') document.getElementById('demo')?.scrollIntoView({behavior:'smooth'});
+      if (text === 'Contact form') document.getElementById('contact')?.scrollIntoView({behavior:'smooth'});
+    });
+  </script>
+
+  
   <df-messenger
       intent="WELCOME"
       chat-title="CRM Assistant"
