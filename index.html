@@ -1,703 +1,758 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>All-in-One Insurance CRM</title>
-  
-  <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Titus Data Labs — Software built around what your business needs</title>
+<meta name="description" content="Titus Data Labs builds practical software for solo-run businesses, starting with a real insurance agent CRM running a live 2,000-client book every day." />
+<meta property="og:title" content="Titus Data Labs" />
+<meta property="og:description" content="Practical software for solo-run businesses. Built module by module, starting with a CRM that runs a real 2,000-client insurance book every day." />
+<meta property="og:image" content="https://titusdl.com/assets/og-image.png" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://titusdl.com/" />
+<meta name="twitter:card" content="summary_large_image" />
 
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%235b8def'/%3E%3Cstop offset='1' stop-color='%23a06bf2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='32' cy='32' r='28' fill='url(%23g)'/%3E%3C/svg%3E" />
 
-  <!-- Tailwind & Icons -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+<style>
+  :root{
+    --ink: #14161f;
+    --ink-soft: #454a58;
+    --ink-faint: #6b7182;
+    --surface: #f5f6fa;
+    --panel: rgba(255,255,255,0.72);
+    --panel-solid: rgba(255,255,255,0.92);
+    --panel-border: rgba(255,255,255,0.55);
+    --glass-blur: 18px;
+    --accent: #4f6df5;
+    --accent-2: #8a5cf6;
+    --accent-3: #22c1c3;
+    --good: #1a9c6b;
+    --warn: #b4881a;
+    --radius-lg: 28px;
+    --radius-md: 18px;
+    --radius-sm: 12px;
+    --shadow-soft: 0 8px 30px rgba(20,22,40,0.08), 0 2px 8px rgba(20,22,40,0.05);
+    --shadow-lift: 0 20px 60px rgba(30,30,60,0.16), 0 6px 20px rgba(30,30,60,0.08);
+    --maxw: 1120px;
+  }
 
-  <!-- Base styles -->
-  <style>
-    html{scroll-behavior:smooth}
-    section{padding-top:8rem;padding-bottom:8rem}
-    .text-balance{text-wrap:balance}
-    @media (max-width:768px){section{padding-top:4rem;padding-bottom:4rem}}
-    /* fade-up entrance */
-    .fade-up{opacity:0;transform:translateY(10px);animation:fade-up .6s ease-out forwards}
-    @keyframes fade-up{to{opacity:1;transform:translateY(0)}}
-    /* number pop */
-    .pop{animation:pop .3s ease-out}
-    @keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.08)}100%{transform:scale(1)}}
-    /* shimmering underline */
-    .shimmer-underline{position:relative}
-    .shimmer-underline::after{
-      content:"";position:absolute;left:50%;transform:translateX(-50%);
-      bottom:-6px;width:70%;height:2px;border-radius:9999px;
-      background:linear-gradient(90deg,transparent,rgba(59,130,246,.6),transparent);
-      background-size:200% 100%;animation:shimmer 2.2s linear infinite
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth; scroll-padding-top:88px}
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--surface);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  img,svg{display:block;max-width:100%}
+  a{color:inherit}
+  .container{max-width:var(--maxw); margin:0 auto; padding:0 24px}
+  .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .skip-link{position:absolute;left:16px;top:-60px;background:#14161f;color:#fff;padding:10px 16px;border-radius:8px;z-index:1000;transition:top .2s}
+  .skip-link:focus{top:16px}
+
+  /* ---------- mesh background ---------- */
+  .mesh-bg{
+    position:fixed; inset:0; z-index:-2; overflow:hidden;
+    background:
+      radial-gradient(60% 50% at 12% 8%, rgba(138,92,246,0.30), transparent 60%),
+      radial-gradient(55% 45% at 88% 4%, rgba(79,109,245,0.28), transparent 60%),
+      radial-gradient(60% 55% at 82% 60%, rgba(34,193,195,0.22), transparent 60%),
+      radial-gradient(70% 60% at 8% 78%, rgba(79,109,245,0.20), transparent 60%),
+      linear-gradient(180deg, #f7f7fb 0%, #f2f3f9 40%, #eef0f8 100%);
+    background-size:180% 180%;
+    animation: meshDrift 34s ease-in-out infinite alternate;
+  }
+  @keyframes meshDrift{
+    0%{background-position:0% 0%, 100% 0%, 100% 100%, 0% 100%, 0 0}
+    100%{background-position:10% 8%, 90% 6%, 88% 92%, 6% 90%, 0 0}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .mesh-bg{animation:none}
+  }
+
+  /* ---------- glass utility ---------- */
+  .glass{
+    background:var(--panel);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+    border:1px solid var(--panel-border);
+    box-shadow: var(--shadow-soft);
+  }
+  .glass-solid{
+    background:var(--panel-solid);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    border:1px solid var(--panel-border);
+    box-shadow: var(--shadow-soft);
+  }
+  @media (prefers-reduced-transparency: reduce){
+    .glass, .glass-solid{
+      background: #ffffff;
+      -webkit-backdrop-filter:none;
+      backdrop-filter:none;
     }
-    @keyframes shimmer{from{background-position:200% 0}to{background-position:-200% 0}}
-    .no-scrollbar::-webkit-scrollbar{display:none}
-    .no-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
+  }
 
-    html { scroll-behavior: smooth; }
-    /* 고정 헤더가 있으면 높이만큼 보정 */
-    :target { scroll-margin-top: 80px; }
-  </style>
+  /* ---------- header ---------- */
+  header.site{
+    position:sticky; top:0; z-index:100;
+    padding:14px 0;
+  }
+  header.site .bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 20px; border-radius:999px;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-weight:700; font-size:1.05rem; letter-spacing:-0.01em; text-decoration:none;
+  }
+  .logo .mark{
+    width:30px;height:30px;border-radius:9px;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    box-shadow: 0 2px 10px rgba(79,109,245,0.35);
+  }
+  nav.links{display:flex; gap:28px; align-items:center}
+  nav.links a{font-size:0.94rem; font-weight:500; text-decoration:none; color:var(--ink-soft)}
+  nav.links a:hover{color:var(--ink)}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:11px 20px; border-radius:999px;
+    font-weight:600; font-size:0.92rem; text-decoration:none;
+    border:1px solid transparent; cursor:pointer;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px)}
+  .btn-primary{
+    background:linear-gradient(135deg, var(--accent), var(--accent-2));
+    color:#fff; box-shadow:0 8px 22px rgba(79,109,245,0.35);
+  }
+  .btn-ghost{
+    background:rgba(255,255,255,0.5);
+    border:1px solid rgba(20,22,40,0.12);
+    color:var(--ink);
+  }
+  .btn-sm{padding:9px 16px; font-size:0.86rem}
+  .nav-mobile-toggle{display:none}
 
-  <!-- SEO -->
-  <meta name="description" content="An all-in-one insurance CRM for agents. Remember, connect, and execute across Mobile · Tablet · Web.">
-  <meta property="og:title" content="All-in-One Insurance CRM">
-  <meta property="og:description" content="7 product views, family linking, auto reminders — in one app.">
-  <meta property="og:image" content="https://titusdl.com/og-image.jpg">
-  <meta property="og:type" content="website">
-  <meta name="twitter:card" content="summary_large_image">
+  /* ---------- sections ---------- */
+  section{padding:100px 0}
+  @media (max-width:768px){section{padding:64px 0}}
+  h1,h2,h3{margin:0; letter-spacing:-0.02em}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.78rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--accent); margin-bottom:14px;
+  }
+  .eyebrow::before{content:""; width:6px;height:6px;border-radius:50%; background:var(--accent)}
 
-  <!-- Analytics (optional) -->
-  <script defer data-domain="titusdl.com" src="https://plausible.io/js/script.js"></script>
+  /* ---------- hero ---------- */
+  .hero{padding-top:64px}
+  .hero .container{
+    display:grid; grid-template-columns:1fr; gap:36px; text-align:center;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    font-weight:800; max-width:920px; margin:0 auto; text-wrap:balance;
+  }
+  .hero .lede{
+    font-size:1.2rem; color:var(--ink-soft); max-width:680px; margin:20px auto 0;
+    text-wrap:balance;
+  }
+  .hero .ctas{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:32px}
+  .hero-badge{
+    display:inline-flex; align-items:center; gap:10px; margin:0 auto;
+    padding:8px 16px; border-radius:999px; font-size:0.86rem; font-weight:600; color:var(--ink-soft);
+  }
+  .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--good)}
+
+  /* abstract dashboard mockup, pure CSS/SVG */
+  .mockup-wrap{margin-top:56px}
+  .mockup{
+    border-radius:26px; padding:22px; max-width:920px; margin:0 auto;
+    position:relative;
+  }
+  .mockup-top{display:flex; gap:8px; margin-bottom:16px}
+  .mockup-top span{width:11px;height:11px;border-radius:50%; background:rgba(20,22,40,0.14)}
+  .mockup-grid{display:grid; grid-template-columns:1fr 2.2fr; gap:16px}
+  .mockup-side{display:flex; flex-direction:column; gap:10px}
+  .mockup-pill{height:14px; border-radius:7px; background:rgba(20,22,40,0.08)}
+  .mockup-pill.active{background:linear-gradient(135deg, var(--accent), var(--accent-2)); opacity:0.85}
+  .mockup-main{display:grid; grid-template-columns:1fr 1fr; gap:14px}
+  .mockup-card{
+    border-radius:16px; padding:16px; background:rgba(255,255,255,0.6);
+    border:1px solid rgba(255,255,255,0.6);
+  }
+  .mockup-card .num{font-size:1.5rem; font-weight:800}
+  .mockup-card .lbl{font-size:0.78rem; color:var(--ink-faint); margin-top:4px}
+  .mockup-bar{height:8px;border-radius:4px;background:rgba(20,22,40,0.07); margin-top:10px; overflow:hidden}
+  .mockup-bar i{display:block;height:100%;background:linear-gradient(90deg, var(--accent-3), var(--accent))}
+
+  /* ---------- proof strip ---------- */
+  .proof{padding:70px 0}
+  .proof-grid{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:16px;
+  }
+  @media (max-width:900px){.proof-grid{grid-template-columns:repeat(2,1fr)}}
+  .proof-card{
+    border-radius:var(--radius-md); padding:22px; text-align:center;
+  }
+  .proof-card .num{font-size:2rem; font-weight:800; letter-spacing:-0.02em}
+  .proof-card .lbl{font-size:0.86rem; color:var(--ink-soft); margin-top:6px}
+
+  /* ---------- feature cards ---------- */
+  .section-head{max-width:640px; margin-bottom:48px}
+  .section-head.center{margin-left:auto; margin-right:auto; text-align:center}
+  .section-head h2{font-size:clamp(1.8rem,3vw,2.4rem); font-weight:800}
+  .section-head p{color:var(--ink-soft); font-size:1.08rem; margin-top:12px}
+
+  .feature-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+  @media (max-width:900px){.feature-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.feature-grid{grid-template-columns:1fr}}
+  .feature-card{
+    border-radius:var(--radius-md); padding:26px;
+  }
+  .feature-icon{
+    width:44px;height:44px;border-radius:12px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, rgba(79,109,245,0.15), rgba(138,92,246,0.15));
+    margin-bottom:16px; color:var(--accent);
+  }
+  .feature-card h3{font-size:1.05rem; font-weight:700; margin-bottom:8px}
+  .feature-card p{color:var(--ink-soft); font-size:0.94rem; margin:0}
+
+  /* ---------- comparison table ---------- */
+  .table-wrap{border-radius:var(--radius-lg); padding:8px; overflow-x:auto}
+  table{width:100%; border-collapse:collapse; min-width:720px}
+  th,td{padding:14px 16px; text-align:left; font-size:0.92rem}
+  thead th{
+    color:var(--ink-faint); font-weight:700; font-size:0.78rem; text-transform:uppercase; letter-spacing:0.04em;
+    border-bottom:1px solid rgba(20,22,40,0.08);
+  }
+  tbody tr:not(:last-child) td{border-bottom:1px solid rgba(20,22,40,0.06)}
+  td.yes{color:var(--good); font-weight:700}
+  td.no{color:#c14a4a; font-weight:700}
+  td.mid{color:var(--warn); font-weight:700}
+  .our-col{background:rgba(79,109,245,0.06); border-radius:12px}
+
+  /* ---------- roadmap / vision ---------- */
+  .roadmap-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px}
+  @media (max-width:900px){.roadmap-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.roadmap-grid{grid-template-columns:1fr}}
+  .roadmap-card{border-radius:var(--radius-md); padding:24px; position:relative}
+  .roadmap-card .step{
+    font-size:0.75rem; font-weight:800; color:var(--accent); letter-spacing:0.06em; text-transform:uppercase;
+    margin-bottom:10px;
+  }
+  .roadmap-card h3{font-size:1.1rem; font-weight:700; margin-bottom:8px}
+  .roadmap-card p{color:var(--ink-soft); font-size:0.9rem; margin:0}
+  .roadmap-card.live{border:1px solid rgba(26,156,107,0.35)}
+  .roadmap-card.live .step{color:var(--good)}
+  .roadmap-note{
+    margin-top:28px; padding:18px 22px; border-radius:var(--radius-md);
+    font-size:0.94rem; color:var(--ink-soft);
+  }
+
+  /* ---------- proof-not-promises ---------- */
+  .facts-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px}
+  @media (max-width:900px){.facts-grid{grid-template-columns:1fr}}
+  .fact-card{border-radius:var(--radius-md); padding:26px}
+  .fact-card .fact-icon{color:var(--accent); margin-bottom:14px}
+  .fact-card p{color:var(--ink-soft); font-size:0.95rem; margin:0}
+  .fact-card strong{color:var(--ink); display:block; margin-bottom:6px; font-size:1.02rem}
+
+  /* ---------- pricing ---------- */
+  .pricing-banner{
+    text-align:center; border-radius:var(--radius-lg); padding:32px; margin-bottom:44px;
+  }
+  .pricing-banner .headline{font-size:1.5rem; font-weight:800}
+  .pricing-banner .headline b{color:var(--accent)}
+  .pricing-grid{display:grid; grid-template-columns:1fr 1fr; gap:24px}
+  @media (max-width:800px){.pricing-grid{grid-template-columns:1fr}}
+  .price-card{border-radius:var(--radius-lg); padding:32px; display:flex; flex-direction:column}
+  .price-card.featured{
+    background:linear-gradient(160deg, rgba(79,109,245,0.94), rgba(138,92,246,0.94));
+    color:#fff; border:1px solid rgba(255,255,255,0.25);
+    box-shadow: var(--shadow-lift);
+  }
+  .price-card h3{font-size:1.3rem; font-weight:700}
+  .price-card .tag{
+    display:inline-block; margin-left:8px; font-size:0.72rem; font-weight:700; padding:4px 10px; border-radius:999px;
+    background:rgba(255,255,255,0.25); color:#fff;
+  }
+  .price-card .amount{font-size:2.6rem; font-weight:800; margin:14px 0}
+  .price-card .amount span{font-size:1rem; font-weight:500; opacity:0.7}
+  .price-card ul{list-style:none; margin:0 0 24px; padding:0; display:flex; flex-direction:column; gap:12px}
+  .price-card li{display:flex; gap:10px; font-size:0.94rem; align-items:flex-start}
+  .price-card:not(.featured) li{color:var(--ink-soft)}
+  .price-card.featured li{color:rgba(255,255,255,0.92)}
+  .check{flex-shrink:0; margin-top:2px}
+  .custom-note{
+    margin-top:22px; text-align:center; border-radius:var(--radius-md); padding:16px 20px; font-size:0.92rem; color:var(--ink-soft);
+  }
+
+  /* ---------- faq ---------- */
+  .faq-list{display:flex; flex-direction:column; gap:12px; max-width:760px; margin:0 auto}
+  details.faq-item{border-radius:var(--radius-md); padding:6px 22px}
+  details.faq-item summary{
+    cursor:pointer; font-weight:600; padding:16px 0; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px;
+  }
+  details.faq-item summary::-webkit-details-marker{display:none}
+  details.faq-item summary .chev{transition:transform .2s ease; flex-shrink:0; color:var(--ink-faint)}
+  details.faq-item[open] summary .chev{transform:rotate(180deg)}
+  details.faq-item p{color:var(--ink-soft); margin:0 0 18px; font-size:0.95rem}
+
+  /* ---------- contact ---------- */
+  .contact-panel{
+    border-radius:var(--radius-lg); padding:56px 40px; text-align:center;
+    background:linear-gradient(160deg, rgba(79,109,245,0.95), rgba(138,92,246,0.9));
+    color:#fff;
+  }
+  .contact-panel h2{font-size:clamp(1.8rem,3.4vw,2.6rem); font-weight:800; max-width:640px; margin:0 auto}
+  .contact-panel p{opacity:0.92; font-size:1.05rem; max-width:560px; margin:16px auto 30px}
+  .contact-panel .btn-primary{background:#fff; color:var(--accent); box-shadow:0 8px 24px rgba(0,0,0,0.18)}
+
+  footer.site{padding:40px 0; text-align:center; color:var(--ink-faint); font-size:0.88rem}
+  footer.site a{text-decoration:underline}
+
+  .sticky-cta{
+    position:fixed; left:16px; right:16px; bottom:16px; z-index:90; display:none;
+  }
+  @media (max-width:768px){.sticky-cta{display:block}}
+  .sticky-cta a{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    padding:14px; border-radius:999px; font-weight:700; text-decoration:none;
+    background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#fff;
+    box-shadow:0 10px 30px rgba(79,109,245,0.4);
+  }
+
+  @media (max-width:900px){
+    header.site .bar{flex-wrap:wrap; gap:10px 16px; border-radius:24px}
+    nav.links{
+      order:3; width:100%; justify-content:flex-start;
+      gap:18px; overflow-x:auto; padding-top:4px;
+    }
+    nav.links a{white-space:nowrap; font-size:0.88rem}
+  }
+</style>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800">
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div class="mesh-bg" aria-hidden="true"></div>
+
+<header class="site">
+  <div class="container">
+    <div class="bar glass">
+      <a href="#top" class="logo">
+        <span class="mark" aria-hidden="true"></span>
+        Titus Data Labs
+      </a>
+      <nav class="links" aria-label="Primary">
+        <a href="#product">Product</a>
+        <a href="#proof">Proof</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <a href="#contact" class="btn btn-primary btn-sm">Talk to us</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
 
   <!-- HERO -->
-  <section class="bg-gradient-to-br from-blue-600 to-blue-400 text-white text-center px-4">
-    <div class="max-w-4xl mx-auto">
-      <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight mb-6 text-balance">
-        An All-in-One CRM, Designed for Insurance Agents.
-      </h1>
-      <p class="text-xl md:text-2xl mb-10 opacity-90 text-balance">
-        It’s more than a tool — it’s your partner to <strong>Remember, Connect, and Execute.</strong>
+  <section id="top" class="hero">
+    <div class="container">
+      <span class="hero-badge glass"><span class="dot" aria-hidden="true"></span> Live in production — real client data, every day</span>
+      <h1>We build what your business actually needs — not what's trendy.</h1>
+      <p class="lede">
+        We started with a CRM built for insurance agents, because agents live with the real stakes:
+        compliance, family policies, renewal deadlines. It's running a real ~2,000-client book today.
+        That's how we build everything — one module at a time, driven by what operators actually need.
       </p>
-      <div class="flex flex-col md:flex-row justify-center gap-4">
-        <a href="#features" class="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <i class="fas fa-arrow-right mr-2"></i> Explore Features
-        </a>
-        <a href="#differentiators" class="text-white border border-white px-8 py-4 rounded-full hover:bg-white/10 transition-colors duration-300">
-          <i class="fas fa-chart-line mr-2"></i> See the Difference
-        </a>
-        <a href="#pricing-full" class="bg-white/10 border border-white px-8 py-4 rounded-full hover:bg-white/20 transition">
-          <i class="fas fa-tags mr-2"></i> View Pricing & 3-Mo FREE
-        </a>
-        <a href="#!" id="openDemo" class="bg-white/10 border border-white px-8 py-4 rounded-full hover:bg-white/20 transition">
-          <i class="fas fa-play mr-2"></i> 50-sec Demo
-        </a>
+      <div class="ctas">
+        <a href="#product" class="btn btn-primary">See what's live</a>
+        <a href="#contact" class="btn btn-ghost glass">Talk to us about your business</a>
+      </div>
+
+      <div class="mockup-wrap">
+        <div class="mockup glass-solid">
+          <div class="mockup-top" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="mockup-grid">
+            <div class="mockup-side" aria-hidden="true">
+              <div class="mockup-pill active" style="width:70%"></div>
+              <div class="mockup-pill" style="width:85%"></div>
+              <div class="mockup-pill" style="width:60%"></div>
+              <div class="mockup-pill" style="width:75%"></div>
+              <div class="mockup-pill" style="width:50%"></div>
+            </div>
+            <div class="mockup-main" aria-hidden="true">
+              <div class="mockup-card">
+                <div class="num">8</div>
+                <div class="lbl">Policy types tracked</div>
+                <div class="mockup-bar"><i style="width:80%"></i></div>
+              </div>
+              <div class="mockup-card">
+                <div class="num">2FA</div>
+                <div class="lbl">Required on every login</div>
+                <div class="mockup-bar"><i style="width:100%"></i></div>
+              </div>
+              <div class="mockup-card">
+                <div class="num">RLS</div>
+                <div class="lbl">Agent-isolated by default</div>
+                <div class="mockup-bar"><i style="width:95%"></i></div>
+              </div>
+              <div class="mockup-card">
+                <div class="num">0</div>
+                <div class="lbl">SSNs collected</div>
+                <div class="mockup-bar"><i style="width:15%"></i></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p style="text-align:center; font-size:0.8rem; color:var(--ink-faint); margin-top:14px">
+          Illustrative preview, not a live screenshot.
+        </p>
       </div>
     </div>
   </section>
+
+  <!-- PROOF STRIP -->
+  <section id="proof" class="proof">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Proof, not promises</span>
+        <h2>Real numbers from a real, running business</h2>
+      </div>
+      <div class="proof-grid">
+        <div class="proof-card glass">
+          <div class="num">8</div>
+          <div class="lbl">Insurance policy types tracked in one view</div>
+        </div>
+        <div class="proof-card glass">
+          <div class="num">~2,000</div>
+          <div class="lbl">Clients in the one real book run on this CRM, daily</div>
+        </div>
+        <div class="proof-card glass">
+          <div class="num">100%</div>
+          <div class="lbl">Logins require two-factor authentication</div>
+        </div>
+        <div class="proof-card glass">
+          <div class="num">0</div>
+          <div class="lbl">Social Security numbers collected, by design</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCT / FEATURES -->
+  <section id="product">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What's live today</span>
+        <h2>A CRM built for how insurance agents actually work</h2>
+        <p>Not a generic CRM with insurance fields bolted on. Every screen assumes you're tracking policies,
+          families, and deadlines that matter for compliance — because that's what it was built to do.</p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card glass">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h5"/></svg>
+          </div>
+          <h3>8 policy types, one view</h3>
+          <p>Life, Medicare, health, annuity, cancer, long-term care, business retirement plans, and group health — each with the fields that product actually needs.</p>
+        </div>
+        <div class="feature-card glass">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="8" r="3"/><path d="M2 20c0-3 2.5-5 6-5s6 2 6 5M12 20c0-3 2.5-5 6-5"/></svg>
+          </div>
+          <h3>Family & joint policies</h3>
+          <p>Link family members and joint-owned policies so a household shows up as one connected picture, not scattered records.</p>
+        </div>
+        <div class="feature-card glass">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4"/></svg>
+          </div>
+          <h3>Deadlines that calculate themselves</h3>
+          <p>Birthdays, renewals, RMD dates, and Medicare-65 eligibility are computed automatically as you view a client — not tracked by hand.</p>
+        </div>
+        <div class="feature-card glass">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+          </div>
+          <h3>Recurring to-dos</h3>
+          <p>Follow-up tasks generate on a recurring schedule, so nothing depends on remembering to add it to a list.</p>
+        </div>
+        <div class="feature-card glass">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>
+          </div>
+          <h3>Product status dashboard</h3>
+          <p>See every client's status across all eight product lines at once, instead of switching between separate screens.</p>
+        </div>
+        <div class="feature-card glass">
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+          </div>
+          <h3>Agent-isolated by default</h3>
+          <p>Database-level row security keeps each agent's book separate — and it's re-verified by an automated test on every single code change, not just at launch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIFFERENTIATORS -->
+  <section id="compare">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">How it compares</span>
+        <h2>Built for insurance, not adapted for it</h2>
+        <p>General-purpose tools can be configured to sort of work. This is built around insurance workflows from the schema up.</p>
+      </div>
+      <div class="table-wrap glass">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Zoho CRM</th>
+              <th>Notion</th>
+              <th>Slack</th>
+              <th>Monday.com</th>
+              <th class="our-col">Titus Data Labs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Native insurance policy views</td>
+              <td class="no">Custom setup required</td>
+              <td class="no">Not native</td>
+              <td class="no">Not a CRM</td>
+              <td class="no">No specific view</td>
+              <td class="yes our-col">8 built-in views</td>
+            </tr>
+            <tr>
+              <td>Family & joint-policy linking</td>
+              <td class="no">Manual effort</td>
+              <td class="no">Manual effort</td>
+              <td class="no">Not a CRM</td>
+              <td class="no">No specific feature</td>
+              <td class="yes our-col">Built in</td>
+            </tr>
+            <tr>
+              <td>Auto-calculated dates (RMD, Medicare-65)</td>
+              <td class="mid">Requires setup</td>
+              <td class="mid">Manual calendar</td>
+              <td class="no">Needs separate app</td>
+              <td class="mid">Requires setup</td>
+              <td class="yes our-col">Computed automatically</td>
+            </tr>
+            <tr>
+              <td>Agent-level data isolation, CI-verified</td>
+              <td class="mid">Role config, not DB-level</td>
+              <td class="no">No row-level security</td>
+              <td class="no">Not applicable</td>
+              <td class="mid">Role config, not DB-level</td>
+              <td class="yes our-col">Postgres RLS + automated test</td>
+            </tr>
+            <tr>
+              <td>Setup effort</td>
+              <td class="no">Complex</td>
+              <td class="no">Build it yourself</td>
+              <td class="no">Needs integrations</td>
+              <td class="mid">Template-based</td>
+              <td class="yes our-col">Same-day onboarding</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROADMAP / VISION -->
+  <section id="roadmap">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Where we're headed</span>
+        <h2>The Agency OS — built module by module</h2>
+        <p>Insurance agents are our first customer, but they're really our proof that solo-run
+          businesses need one operating system instead of five disconnected tools. Sales is live.
+          The rest ships only when it's proven, not just planned.</p>
+      </div>
+      <div class="roadmap-grid">
+        <div class="roadmap-card glass live">
+          <div class="step">01 — Live</div>
+          <h3>Sales & clients</h3>
+          <p>The CRM you see on this page. Running a real book, in production, today.</p>
+        </div>
+        <div class="roadmap-card glass">
+          <div class="step">02 — Next</div>
+          <h3>Marketing automation</h3>
+          <p>Turning the client and family data already in the CRM into outreach that doesn't require a separate tool.</p>
+        </div>
+        <div class="roadmap-card glass">
+          <div class="step">03 — Next</div>
+          <h3>Finance & commissions</h3>
+          <p>Commission tracking tied to the same policy records agents already manage here.</p>
+        </div>
+        <div class="roadmap-card glass">
+          <div class="step">04 — Next</div>
+          <h3>Operations & compliance</h3>
+          <p>The audit trails and access controls already underneath the CRM, extended into a standalone compliance layer.</p>
+        </div>
+      </div>
+      <p class="roadmap-note glass">
+        Honest note: none of modules 2–4 exist yet. We're not listing them because they're available —
+        we're listing them because this is the order we've committed to, and we'd rather tell you the plan
+        than let a mockup imply the product does more than it does today.
+      </p>
+    </div>
+  </section>
+
+  <!-- FACTS INSTEAD OF TESTIMONIALS -->
+  <section id="facts">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Why no testimonial wall</span>
+        <h2>We have one real customer. Here's what that actually means.</h2>
+        <p>We could invent a wall of five-star quotes. We're not going to. Here's what's real instead.</p>
+      </div>
+      <div class="facts-grid">
+        <div class="fact-card glass">
+          <div class="fact-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+          </div>
+          <strong>One real book, running daily</strong>
+          <p>An independent agency runs its entire client book — about 2,000 clients across all eight product lines — on this CRM every working day. Not a pilot. Production.</p>
+        </div>
+        <div class="fact-card glass">
+          <div class="fact-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+          </div>
+          <strong>Isolation tested on every change</strong>
+          <p>Agent-to-agent data separation isn't a policy we wrote once — it's enforced by the database and checked by an automated test that has to pass before any code change ships.</p>
+        </div>
+        <div class="fact-card glass">
+          <div class="fact-icon" aria-hidden="true">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l3 2"/></svg>
+          </div>
+          <strong>We removed a field instead of adding one</strong>
+          <p>Social Security numbers used to be collected. We looked at how agents actually use client records day to day, decided it wasn't needed, and took it out of the product.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
   <section id="pricing">
-  </section>
-  
-  <!-- PRICING (cards with amounts & promo) -->
-  <section id="pricing-full" class="bg-gray-50 px-6 pt-16 pb-16">
-    <div class="max-w-5xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold mb-3 text-blue-800 text-balance">
-          <i class="fas fa-star text-amber-500 mr-2"></i>
-          Stop Paying, Start Automating: Exclusive 2026 Launch Offer
-          <i class="fas fa-star text-amber-500 ml-2"></i>
-        </h2>
-        <p class="text-2xl md:text-3xl font-extrabold text-red-600 max-w-4xl mx-auto mb-2">
-          Join in 2026 and get <span class="text-5xl md:text-6xl text-amber-600 font-extrabold">3 Months FREE</span>
-          on any plan, plus <span class="text-blue-600">FREE Data Migration</span>.
-        </p>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
-          Choose the power level that fits your ambition.
-        </p>
+    <div class="container">
+      <div class="pricing-banner glass">
+        <p class="headline">2026 launch offer: <b>2 months free</b> on any plan, plus free data migration.</p>
       </div>
-
-      <div class="grid md:grid-cols-2 gap-8">
-        <!-- Standard -->
-        <div class="bg-white p-8 rounded-2xl shadow-xl flex flex-col justify-between border-t-4 border-blue-300">
-          <div>
-            <h4 class="text-3xl font-bold mb-2">Standard Plan</h4>
-            <p class="text-4xl font-extrabold text-gray-800 mb-6">
-              $29.99 <span class="text-lg font-normal text-gray-500">/user/month</span>
-            </p>
-            <h5 class="text-lg font-semibold mb-3 border-b pb-2 text-blue-600">Core CRM & Compliance</h5>
-            <ul class="text-left space-y-3 text-gray-600">
-              <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-green-500 mt-1"></i> <span class="font-semibold">7 Dedicated Policy Views</span> (Life, Annuity, Medicare, etc.)</li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-green-500 mt-1"></i> Multi-Device Access (Mobile · Tablet · Web)</li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-green-500 mt-1"></i> Intelligent Client Linking (Family & Joint Policies)</li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-check-circle text-green-500 mt-1"></i> Advanced Data Calculation (Age, FamilyGroupID, Status).</li>
-              <li class="flex items-start gap-3 text-gray-400"><i class="fa-solid fa-minus text-gray-400 mt-1"></i> Automated Email/Notification Triggers</li>
-            </ul>
-          </div>
-          <a href="mailto:info@titusdl.com?subject=Inquiry_Standard_Plan" class="mt-8 block bg-blue-500 text-white font-semibold py-3 rounded-xl hover:bg-blue-600 transition">
-            Get Started (Standard)
-          </a>
+      <div class="section-head center">
+        <span class="eyebrow">Pricing</span>
+        <h2>Simple, per-agent pricing</h2>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card glass">
+          <h3>Standard</h3>
+          <div class="amount">$49.99 <span>/ user / month</span></div>
+          <ul>
+            <li><span class="check" aria-hidden="true">✓</span> All 8 policy views</li>
+            <li><span class="check" aria-hidden="true">✓</span> Family & joint policy linking</li>
+            <li><span class="check" aria-hidden="true">✓</span> Auto-calculated renewal & compliance dates</li>
+            <li><span class="check" aria-hidden="true">✓</span> Recurring to-dos</li>
+            <li><span class="check" aria-hidden="true">✓</span> 2FA + access audit log</li>
+          </ul>
+          <a href="mailto:info@titusdl.com?subject=Inquiry_Standard_Plan" class="btn btn-ghost">Get started</a>
         </div>
-
-        <!-- Pro -->
-        <div class="bg-blue-600 text-white p-8 rounded-2xl shadow-2xl scale-[1.03] flex flex-col justify-between border-t-4 border-amber-300">
-          <div class="mb-4">
-            <h4 class="text-3xl font-bold mb-2">Pro Plan <span class="text-amber-300 text-xl font-normal">(Recommended)</span></h4>
-            <p class="text-4xl font-extrabold mb-6">
-              $49.99 <span class="text-lg font-normal opacity-80">/user/month</span>
-            </p>
-            <h5 class="text-lg font-semibold mb-3 border-b pb-2 text-amber-300">Unleash Full Automation & Growth</h5>
-            <ul class="text-left space-y-3 opacity-90">
-              <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-amber-300 mt-1"></i> <span class="font-semibold">All Standard Plan Features Included</span></li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-robot text-amber-300 mt-1"></i> <strong class="font-extrabold">Tier 1 Automation:</strong> Automated Email & Notification Triggers.</li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-amber-300 mt-1"></i> <span class="font-semibold">Proactive Alerts:</span> Birthday / Renewal / Follow-Up reminders (email/app).</li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-amber-300 mt-1"></i> Custom Status & Workflow Change Automations.</li>
-              <li class="flex items-start gap-3"><i class="fa-solid fa-circle-check text-amber-300 mt-1"></i> Priority Support & Enhanced Storage.</li>
-            </ul>
-          </div>
-          <a href="mailto:info@titusdl.com?subject=Inquiry_Pro_Plan" class="mt-8 block bg-white text-blue-600 font-extrabold py-3 rounded-xl hover:bg-gray-100 transition">
-            Choose Pro Plan
-          </a>
+        <div class="price-card featured">
+          <h3>Pro <span class="tag">Recommended</span></h3>
+          <div class="amount">$99.99 <span>/ user / month</span></div>
+          <ul>
+            <li><span class="check" aria-hidden="true">✓</span> Everything in Standard</li>
+            <li><span class="check" aria-hidden="true">✓</span> Automated email & notification triggers</li>
+            <li><span class="check" aria-hidden="true">✓</span> Proactive birthday / renewal / follow-up alerts</li>
+            <li><span class="check" aria-hidden="true">✓</span> Custom status & workflow automations</li>
+            <li><span class="check" aria-hidden="true">✓</span> Priority support</li>
+          </ul>
+          <a href="mailto:info@titusdl.com?subject=Inquiry_Pro_Plan" class="btn btn-primary" style="background:#fff;color:var(--accent)">Choose Pro</a>
         </div>
       </div>
-
-      <div class="mt-8 p-4 bg-gray-200 rounded-xl">
-        <p class="text-gray-700 text-sm md:text-base text-center">
-          <span class="font-bold text-red-600 mr-1">💖</span>
-          <span class="font-semibold">Need App Customization or System Integration?</span>
-          For tailored features, workflow adjustments, or custom integrations, contact
-          <a href="mailto:info@titusdl.com" class="text-blue-600 underline font-semibold">info@titusdl.com</a>.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- KPI STRIP -->
-  <section class="bg-white px-6">
-    <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-      <!-- 1) Insurance Views -->
-      <div class="fade-up" style="animation-delay:0ms">
-        <p class="text-4xl font-extrabold kpi-num" data-count="7">0</p>
-        <p class="text-gray-500 mb-3 shimmer-underline">Insurance Views</p>
-        <div class="flex justify-center">
-          <div class="relative rounded-full bg-blue-50 ring-1 ring-blue-100 p-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <rect x="5" y="6" width="12" height="14" rx="2" opacity="0.5"/>
-              <rect x="7" y="5" width="12" height="14" rx="2" opacity="0.7"/>
-              <rect x="4" y="4" width="12" height="14" rx="2"/>
-              <line x1="6" y1="8" x2="14" y2="8"/><line x1="6" y1="11" x2="14" y2="11"/><line x1="6" y1="14" x2="12" y2="14"/>
-            </svg>
-            <span class="absolute -top-1 -right-1 inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-bold shadow">7</span>
-          </div>
-        </div>
-      </div>
-      <!-- 2) % Auto-Generated -->
-      <div class="fade-up" style="animation-delay:120ms">
-        <p class="text-4xl font-extrabold kpi-num" data-count="95">0</p>
-        <p class="text-gray-500 mb-3 shimmer-underline">% Tasks Auto-Generated</p>
-        <div class="flex justify-center">
-          <div class="rounded-full bg-emerald-50 ring-1 ring-emerald-100 p-3">
-            <i class="fa-solid fa-gear fa-spin text-emerald-600 text-[40px]" style="animation-duration:2.2s" aria-hidden="true"></i>
-          </div>
-        </div>
-      </div>
-      <!-- 3) Devices -->
-      <div class="fade-up" style="animation-delay:240ms">
-        <p class="text-4xl font-extrabold kpi-num" data-count="3">0</p>
-        <p class="text-gray-500 mb-3 shimmer-underline">Devices Supported</p>
-        <div class="flex justify-center gap-3">
-          <div class="rounded-full bg-blue-50 ring-1 ring-blue-100 p-3 animate-pulse hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <rect x="7" y="2" width="10" height="20" rx="2"/><circle cx="12" cy="18" r="1"/>
-            </svg>
-          </div>
-          <div class="rounded-full bg-blue-50 ring-1 ring-blue-100 p-3 animate-pulse [animation-delay:200ms] hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="17" r="1"/>
-            </svg>
-          </div>
-          <div class="rounded-full bg-blue-50 ring-1 ring-blue-100 p-3 animate-pulse [animation-delay:400ms] hover:scale-110 transition-transform">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-      <!-- 4) Days to onboard -->
-      <div class="fade-up" style="animation-delay:360ms">
-        <p class="text-4xl font-extrabold kpi-num" data-count="0.5">0</p>
-        <p class="text-gray-500 mb-3 shimmer-underline">Days to Onboard</p>
-        <div class="flex justify-center">
-          <div class="rounded-full bg-amber-50 ring-1 ring-amber-100 p-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <path d="M12 9v4l3 2"/><circle cx="12" cy="13" r="7"/><path d="M10 2h4M7 4l1.5 1.5M17 4L15.5 5.5" />
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PAIN POINTS -->
-  <section class="bg-white px-6">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-4">Tired of juggling?</h2>
-      <p class="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-        Managing clients shouldn’t be chaos. We solve the most common frustrations.
+      <p class="custom-note glass">
+        Need custom fields, workflow changes, or an integration? Email
+        <a href="mailto:info@titusdl.com">info@titusdl.com</a> — we build what your team actually needs, not just what's on this page.
       </p>
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="bg-gray-50 p-6 rounded-2xl shadow-sm">
-          <div class="text-4xl mb-4 text-blue-500"><i class="fas fa-folder-open"></i></div>
-          <h3 class="text-lg font-semibold mb-2">Scattered Data</h3>
-          <p class="text-sm text-gray-500">Information lives in notebooks and spreadsheets.</p>
-        </div>
-        <div class="bg-gray-50 p-6 rounded-2xl shadow-sm">
-          <div class="text-4xl mb-4 text-blue-500"><i class="fas fa-calendar-times"></i></div>
-          <h3 class="text-lg font-semibold mb-2">Missed Opportunities</h3>
-          <p class="text-sm text-gray-500">Birthdays, renewals, and follow-ups slip through the cracks.</p>
-        </div>
-        <div class="bg-gray-50 p-6 rounded-2xl shadow-sm">
-          <div class="text-4xl mb-4 text-blue-500"><i class="fas fa-users"></i></div>
-          <h3 class="text-lg font-semibold mb-2">Referral Gaps</h3>
-          <p class="text-sm text-gray-500">Weak tracking stalls your network growth.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CORE VALUES -->
-  <section class="bg-gray-100 px-6">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-4">Our Core Values</h2>
-      <p class="text-xl text-gray-600 mb-12"><strong>Remember. Connect. Execute.</strong></p>
-      <div class="grid md:grid-cols-3 gap-12">
-        <div>
-          <i class="fas fa-lightbulb text-5xl text-blue-600 mb-4"></i>
-          <h3 class="text-2xl font-semibold mb-2">Remember</h3>
-          <p class="text-gray-600">Track every client detail and date so you never forget.</p>
-        </div>
-        <div>
-          <i class="fas fa-link text-5xl text-blue-600 mb-4"></i>
-          <h3 class="text-2xl font-semibold mb-2">Connect</h3>
-          <p class="text-gray-600">Link families and policies into one powerful view.</p>
-        </div>
-        <div>
-          <i class="fas fa-rocket text-5xl text-blue-600 mb-4"></i>
-          <h3 class="text-2xl font-semibold mb-2">Execute</h3>
-          <p class="text-gray-600">Automated To-Dos and proactive notifications keep you ahead.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  <section id="demo">
-  </section>  
-
-  <!-- FEATURES -->
-  <section id="features" class="bg-white px-6">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-4xl font-bold mb-4">Features that work for you.</h2>
-      <p class="text-xl text-gray-600 mb-12">A suite of tools that simplifies your workflow and grows your business.</p>
-      <div class="grid md:grid-cols-2 gap-12">
-        <div class="space-y-6">
-          <div class="p-6 bg-gray-100 rounded-xl shadow-sm">
-            <h3 class="text-xl font-semibold mb-2">Intelligent Client Management</h3>
-            <p class="text-gray-600">Automatic ID creation, status filters, and a single dashboard for all data.</p>
-          </div>
-          <div class="p-6 bg-gray-100 rounded-xl shadow-sm">
-            <h3 class="text-xl font-semibold mb-2">Automated To-Do List</h3>
-            <p class="text-gray-600">Daily and weekly tasks are generated automatically to keep you on track.</p>
-          </div>
-          <div class="p-6 bg-gray-100 rounded-xl shadow-sm">
-            <h3 class="text-xl font-semibold mb-2">Integrated Policy View</h3>
-            <p class="text-gray-600">See all 8 policy types at a glance — stop switching screens.</p>
-          </div>
-        </div>
-        <div class="bg-gray-200 rounded-3xl overflow-hidden flex items-center justify-center p-8">
-          <div class="w-full h-72 bg-black rounded-xl overflow-hidden">
-            <iframe 
-              class="w-full h-full"
-              src="https://www.youtube-nocookie.com/embed/3b3RaLwLHnA?autoplay=0&mute=0&playsinline=1&rel=0&modestbranding=1"
-              title="YouTube video player"
-              frameborder="0"
-              allow="autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write"
-              allowfullscreen
-              referrerpolicy="strict-origin-when-cross-origin">
-            </iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DIFFERENTIATORS / COMPARISON -->
-  <section id="differentiators" class="bg-gray-100 px-6">
-    <div class="max-w-5xl mx-auto">
-      <h3 class="text-4xl font-bold text-center mb-2">All-in-One CRM</h3>
-      <h3 class="text-4xl font-bold text-center mb-8 text-gray-700">Designed for Insurance, Built for You</h3>
-      <div class="overflow-x-auto bg-white rounded-3xl p-6 shadow-xl">
-        <table class="table-auto w-full border-collapse">
-          <thead>
-            <tr class="text-center bg-gray-100">
-              <th class="px-4 py-4 font-semibold text-gray-500 rounded-tl-xl">Feature</th>
-              <th class="px-4 py-4 font-semibold text-gray-500">Zoho CRM</th>
-              <th class="px-4 py-4 font-semibold text-gray-500">Notion</th>
-              <th class="px-4 py-4 font-semibold text-gray-500">Slack</th>
-              <th class="px-4 py-4 font-semibold text-gray-500">Monday.com</th>
-              <th class="px-4 py-4 font-semibold text-gray-500 rounded-tr-xl">Our CRM</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="border-b border-gray-200">
-              <td class="px-4 py-4 font-medium">Insurance Product View</td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">Requires custom setup</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">Not native</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">Not a CRM tool</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">No specific view</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-green-500 font-bold">+</span><p class="text-xs text-green-500 mt-1">7 Dedicated views</p></td>
-            </tr>
-            <tr class="border-b border-gray-200">
-              <td class="px-4 py-4 font-medium">Family Relationship Linking</td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">Manual effort required</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">Manual effort required</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">Not a CRM tool</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">No specific functionality</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-green-500 font-bold">+</span><p class="text-xs text-green-500 mt-1">Automatic linking</p></td>
-            </tr>
-            <tr class="border-b border-gray-200">
-              <td class="px-4 py-4 font-medium">Automated Notifications</td>
-              <td class="px-4 py-4 text-center"><span class="text-yellow-500 font-bold">~</span><p class="text-xs text-gray-500 mt-1">Requires setup</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-yellow-500 font-bold">~</span><p class="text-xs text-gray-500 mt-1">Manual calendar required</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">Requires separate app</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-yellow-500 font-bold">~</span><p class="text-xs text-gray-500 mt-1">Requires setup</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-green-500 font-bold">+</span><p class="text-xs text-green-500 mt-1">Automated calendar and reminders</p></td>
-            </tr>
-            <tr class="border-b border-gray-200">
-              <td class="px-4 py-4 font-medium">Product Status Categories</td>
-              <td class="px-4 py-4 text-center"><span class="text-green-500 font-bold">+</span><p class="text-xs text-gray-500 mt-1">Requires custom fields</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">Manual tagging</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-red-500 font-bold">-</span><p class="text-xs text-gray-500 mt-1">Not a CRM tool</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-green-500 font-bold">+</span><p class="text-xs text-gray-500 mt-1">Requires custom fields</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-green-500 font-bold">+</span><p class="text-xs text-green-500 mt-1">Automatic classification</p></td>
-            </tr>
-            <tr class="border-b border-gray-200">
-              <td class="px-4 py-4 font-medium">Ease of Use</td>
-              <td class="px-4 py-4 text-center"><p class="text-red-500 font-bold">Difficult</p><p class="text-xs text-gray-500 mt-1">Complex initial setup</p></td>
-              <td class="px-4 py-4 text-center"><p class="text-red-500 font-bold">Difficult</p><p class="text-xs text-gray-500 mt-1">Requires manual build</p></td>
-              <td class="px-4 py-4 text-center"><p class="text-red-500 font-bold">Difficult</p><p class="text-xs text-gray-500 mt-1">Requires integrations</p></td>
-              <td class="px-4 py-4 text-center"><p class="text-yellow-500 font-bold">Moderate</p><p class="text-xs text-gray-500 mt-1">Template-based</p></td>
-              <td class="px-4 py-4 text-center"><p class="text-green-500 font-bold">Intuitive</p><p class="text-xs text-blue-500 font-bold mt-1">App-like UI</p></td>
-            </tr>
-            <tr>
-              <td class="px-4 py-4 font-medium">Multi-Device (Mobile · Tablet · Web)</td>
-              <td class="px-4 py-4 text-center"><span class="text-yellow-500 font-bold">~</span><p class="text-xs text-gray-500 mt-1">Varies by plan/setup</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-yellow-500 font-bold">~</span><p class="text-xs text-gray-500 mt-1">Has apps; limited CRM use</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-yellow-500 font-bold">~</span><p class="text-xs text-gray-500 mt-1">Messaging-first</p></td>
-              <td class="px-4 py-4 text-center"><span class="text-yellow-500 font-bold">~</span><p class="text-xs text-gray-500 mt-1">Template-based apps</p></td>
-              <td class="px-4 py-4 text-center">
-                <span class="text-green-500 font-bold">+</span>
-                <div class="mt-2 flex items-center justify-center gap-2">
-                  <span class="rounded-full border px-2 py-0.5 text-xs text-blue-600 border-blue-200 font-bold">Mobile</span>
-                  <span class="rounded-full border px-2 py-0.5 text-xs text-blue-600 border-blue-200 font-bold">Tablet</span>
-                  <span class="rounded-full border px-2 py-0.5 text-xs text-blue-600 border-blue-200 font-bold">Web</span>
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPETITOR CONS (sibling section) -->
-  <section class="bg-white px-6">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-4xl font-bold text-center mb-12">Key Disadvantages of Competitors</h2>
-      <div class="overflow-x-auto bg-gray-100 rounded-3xl p-6 shadow-sm">
-        <table class="table-auto w-full border-collapse">
-          <thead>
-            <tr class="text-left">
-              <th class="px-4 py-4 font-semibold text-gray-500">Platform</th>
-              <th class="px-4 py-4 font-semibold text-gray-500">Key Disadvantage</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="border-b border-gray-200">
-              <td class="px-4 py-4 font-medium">Zoho CRM</td>
-              <td class="px-4 py-4">Requires extensive <strong>customization and technical knowledge</strong> to fit insurance workflows.</td>
-            </tr>
-            <tr class="border-b border-gray-200">
-              <td class="px-4 py-4 font-medium">Notion</td>
-              <td class="px-4 py-4">Lacks native CRM features — users must <strong>manually build and maintain</strong> structures.</td>
-            </tr>
-            <tr class="border-b border-gray-200">
-              <td class="px-4 py-4 font-medium">Slack</td>
-              <td class="px-4 py-4">A <strong>communication tool, not a CRM</strong>; core client management needs a separate app.</td>
-            </tr>
-            <tr>
-              <td class="px-4 py-4 font-medium">Monday.com</td>
-              <td class="px-4 py-4">Not purpose-built for insurance — missing <strong>automatic linking and specialized views</strong>.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="bg-gray-100 px-6" id="testimonials">
-    <div class="max-w-5xl mx-auto relative">
-      <h2 class="text-3xl font-bold text-center mb-6">What Agents Are Saying</h2>
-      <div class="relative">
-        <div id="testimonialTrack"
-             class="overflow-x-auto no-scrollbar snap-x snap-mandatory flex gap-6 pb-4 scroll-smooth
-                    [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]">
-          <article class="min-w-[85%] md:min-w-[55%] bg-white p-6 rounded-2xl shadow snap-start shrink-0">
-            <p class="text-lg">“Birthday & renewal reminders boosted our retention immediately.”</p>
-            <div class="mt-4 text-sm text-gray-500">— J. Martin, Medicare Specialist</div>
-          </article>
-          <article class="min-w-[85%] md:min-w-[55%] bg-white p-6 rounded-2xl shadow snap-start shrink-0">
-            <p class="text-lg">“Family linking + joint policy view changed client meetings.”</p>
-            <div class="mt-4 text-sm text-gray-500">— H. Kim, Life & Annuity</div>
-          </article>
-          <article class="min-w-[85%] md:min-w-[55%] bg-white p-6 rounded-2xl shadow snap-start shrink-0">
-            <p class="text-lg">“Same UI on phone, tablet, and desktop — onboarding took half a day.”</p>
-            <div class="mt-4 text-sm text-gray-500">— A. Lee, Agency Owner</div>
-          </article>
-        </div>
-        <button id="tPrev"
-                class="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2
-                       items-center justify-center w-10 h-10 rounded-full bg-white shadow ring-1 ring-gray-200
-                       hover:bg-gray-50" aria-label="Previous testimonial">
-          <i class="fa-solid fa-chevron-left"></i>
-        </button>
-        <button id="tNext"
-                class="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2
-                       items-center justify-center w-10 h-10 rounded-full bg-white shadow ring-1 ring-gray-200
-                       hover:bg-gray-50" aria-label="Next testimonial">
-          <i class="fa-solid fa-chevron-right"></i>
-        </button>
-      </div>
-      <div id="tDots" class="flex items-center justify-center gap-2 mt-4"></div>
-    </div>
-  </section>
-
-  <!-- PRICING TEASER + LEAD FORM -->
-  <section class="bg-white px-6" id="pricing">
-    <div class="max-w-5xl mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-2">Pricing that scales with you</h2>
-      <p class="text-gray-600 mb-8">Tell us your team size and needs — we’ll send a tailored quote.</p>
-      <form action="https://formspree.io/f/yourid" method="POST" class="grid md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-        <input name="email" type="email" required placeholder="Work email" class="px-4 py-3 rounded-xl border">
-        <input name="teamSize" placeholder="Team size (e.g., 1–5)" class="px-4 py-3 rounded-xl border">
-        <button class="bg-blue-600 text-white px-4 py-3 rounded-xl font-semibold hover:bg-blue-700">Get a Quote</button>
-      </form>
-      <p class="text-xs text-gray-400 mt-3">No spam. We reply within 24 hours.</p>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="bg-gray-100 px-6" id="faq">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold text-center mb-6">FAQ</h2>
-      <div class="space-y-3">
-        <details class="bg-white rounded-xl p-4 shadow">
-          <summary class="cursor-pointer font-semibold">Is this built on AppSheet?</summary>
-          <p class="mt-2 text-gray-600">Yes — customized for insurance agent workflows.</p>
+  <section id="faq">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">FAQ</span>
+        <h2>Straight answers</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item glass">
+          <summary>What is this actually built on?<span class="chev" aria-hidden="true">▾</span></summary>
+          <p>It runs on Supabase (Postgres) and Next.js, hosted on Google Cloud Run. It replaced an earlier
+            AppSheet-based version in 2026 — a full rebuild, not a re-skin.</p>
         </details>
-        <details class="bg-white rounded-xl p-4 shadow">
-          <summary class="cursor-pointer font-semibold">Where is my data stored?</summary>
-          <p class="mt-2 text-gray-600">In your Google Workspace (and optionally Firebase/SQL later).</p>
+        <details class="faq-item glass">
+          <summary>Where is my data stored?<span class="chev" aria-hidden="true">▾</span></summary>
+          <p>In a dedicated Supabase Postgres database — not in your Google Workspace. Each agent's data is
+            isolated at the database level, and every login requires two-factor authentication.</p>
         </details>
-        <details class="bg-white rounded-xl p-4 shadow">
-          <summary class="cursor-pointer font-semibold">Does it work fully on mobile and tablet?</summary>
-          <p class="mt-2 text-gray-600">Yes — same UI and functionality across devices.</p>
+        <details class="faq-item glass">
+          <summary>Do you collect Social Security numbers?<span class="chev" aria-hidden="true">▾</span></summary>
+          <p>No. SSN collection was removed from the product — it wasn't needed for how agents actually use
+            client records day to day.</p>
+        </details>
+        <details class="faq-item glass">
+          <summary>Does it work on mobile and tablet?<span class="chev" aria-hidden="true">▾</span></summary>
+          <p>Yes — it's a responsive web app, so the same interface works in a browser on your phone, tablet,
+            or desktop. There's no separate native app to install.</p>
+        </details>
+        <details class="faq-item glass">
+          <summary>How many agencies use this today?<span class="chev" aria-hidden="true">▾</span></summary>
+          <p>One, running a real ~2,000-client book in production. We'd rather tell you that plainly than
+            imply a scale we haven't reached yet.</p>
         </details>
       </div>
     </div>
-  </section>
-  <section id="contact">
   </section>
 
   <!-- CONTACT -->
-  <section id="contact" class="bg-blue-600 text-white text-center px-6">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4">Ready to Transform Your Business?</h2>
-      <p class="text-lg md:text-xl mb-8 opacity-90">
-        Stop managing — start selling. Our CRM is easy to set up and works on any device.
-      </p>
-      <a href="mailto:info@titusdl.com" class="bg-white text-blue-600 font-semibold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <i class="fas fa-envelope mr-2"></i> Schedule a Consultation
-      </a>
+  <section id="contact">
+    <div class="container">
+      <div class="contact-panel">
+        <h2>Tell us what your business actually needs.</h2>
+        <p>Whether that's the CRM as it is today, a customization, or a conversation about what module
+          comes after Sales — we'd rather build the right thing slowly than the wrong thing fast.</p>
+        <a href="mailto:info@titusdl.com" class="btn btn-primary">
+          Email info@titusdl.com
+        </a>
+      </div>
     </div>
   </section>
 
-  <footer class="text-center text-gray-400 text-sm py-8">
-    <p>ⓒ 2026 AppSheet Insurance CRM. All rights reserved.</p>
-  </footer>
+</main>
 
-  <!-- Sticky mobile CTA -->
-  <div class="fixed bottom-4 inset-x-4 z-50 md:hidden">
-    <a href="mailto:info@titusdl.com" class="flex items-center justify-center gap-2 bg-blue-600 text-white py-3 rounded-full shadow-lg">
-      <i class="fa-solid fa-calendar-check"></i> Book a 10-min Intro
-    </a>
+<footer class="site">
+  <div class="container">
+    <p>© 2026 Titus Data Labs. All rights reserved. · <a href="mailto:info@titusdl.com">info@titusdl.com</a></p>
   </div>
-  
-    
-     
+</footer>
 
-  <!-- Demo Modal -->
-  <div id="demoModal" class="fixed inset-0 z-[60] hidden">
-    <div class="absolute inset-0 bg-black/60"></div>
-    <div class="relative mx-auto mt-20 w-[92%] max-w-3xl rounded-2xl overflow-hidden shadow-2xl">
-      <div class="bg-black aspect-video">
-        <iframe
-          id="demoVideo"
-          class="w-full h-full"
-          title="YouTube video player"
-          frameborder="0"
-          src="https://www.youtube-nocookie.com/embed/3b3RaLwLHnA?mute=0&playsinline=1&rel=0&modestbranding=1"
-          allow="autoplay; encrypted-media; picture-in-picture; fullscreen; clipboard-write"
-          allowfullscreen
-          referrerpolicy="strict-origin-when-cross-origin">
-        </iframe>
-      </div>
-      <button id="closeDemo" class="absolute -right-0 -top-0 bg-white rounded-full shadow p-2">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
-  </div>
+<div class="sticky-cta">
+  <a href="mailto:info@titusdl.com">Email us</a>
+</div>
 
-  <!-- Testimonial Scroll Logic -->
-  <script>
-    (() => {
-      const track = document.getElementById('testimonialTrack');
-      if (!track) return;
-      const cards = Array.from(track.querySelectorAll('article'));
-      const prev = document.getElementById('tPrev');
-      const next = document.getElementById('tNext');
-      const dotsWrap = document.getElementById('tDots');
-
-      dotsWrap.innerHTML = '';
-      cards.forEach((_, i) => {
-        const b = document.createElement('button');
-        b.setAttribute('aria-label', `Slide ${i+1}`);
-        b.className = 'w-2.5 h-2.5 rounded-full bg-gray-300 transition-all';
-        b.addEventListener('click', () => scrollToIndex(i));
-        dotsWrap.appendChild(b);
-      });
-
-      const setActive = (i) => {
-        Array.from(dotsWrap.children).forEach((d, idx) => {
-          d.className = 'transition-all rounded-full ' + (idx === i ? 'bg-blue-600 w-5 h-2.5' : 'bg-gray-300 w-2.5 h-2.5');
-        });
-        const atStart = i === 0;
-        const atEnd = i === cards.length - 1;
-        prev?.toggleAttribute('disabled', atStart);
-        next?.toggleAttribute('disabled', atEnd);
-        prev?.classList.toggle('opacity-40', atStart);
-        next?.classList.toggle('opacity-40', atEnd);
-      };
-
-      const currentIndex = () => {
-        let best = 0, bestDist = Infinity;
-        cards.forEach((el, i) => {
-          const dist = Math.abs(track.scrollLeft - el.offsetLeft);
-          if (dist < bestDist) { best = i; bestDist = dist; }
-        });
-        return best;
-      };
-
-      const scrollToIndex = (i) => {
-        track.scrollTo({ left: cards[i].offsetLeft, behavior: 'smooth' });
-      };
-
-      next?.addEventListener('click', () => {
-        const i = Math.min(currentIndex() + 1, cards.length - 1);
-        scrollToIndex(i);
-      });
-      prev?.addEventListener('click', () => {
-        const i = Math.max(currentIndex() - 1, 0);
-        scrollToIndex(i);
-      });
-
-      track.addEventListener('scroll', () => {
-        cancelAnimationFrame(track._raf || 0);
-        track._raf = requestAnimationFrame(() => setActive(currentIndex()));
-      });
-
-      setActive(0);
-    })();
-  </script>
-
-  <!-- FAQ JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"FAQPage",
-    "mainEntity":[
-      {"@type":"Question","name":"Is this built on AppSheet?","acceptedAnswer":{"@type":"Answer","text":"Yes — customized for insurance agent workflows."}},
-      {"@type":"Question","name":"Where is my data stored?","acceptedAnswer":{"@type":"Answer","text":"In your Google Workspace/Sheets (and optionally Firebase/SQL later)."}},
-      {"@type":"Question","name":"Does it work fully on mobile and tablet?","acceptedAnswer":{"@type":"Answer","text":"Yes — same UI and functionality across devices."}}
-    ]
-  }
-  </script>
-
-  <!-- Micro-interactions (KPI + Demo Modal) -->
-  <script>
-    // KPI counter
-    const els=[...document.querySelectorAll('[data-count]')];
-    const obs=new IntersectionObserver((entries)=>entries.forEach(x=>{
-      if(!x.isIntersecting) return;
-      const el=x.target, end=+el.dataset.count; let cur=0;
-      const step=()=>{
-        cur=Math.min(end, +(cur+Math.max(end/40,0.2)).toFixed(1));
-        el.textContent=cur;
-        if(cur<end){ requestAnimationFrame(step); } else { el.classList.add('pop'); }
-      };
-      step(); obs.unobserve(el);
-    }),{threshold:.4});
-    els.forEach(el=>obs.observe(el));
-
-    // Demo modal – toggle src to reliably start/stop autoplay
-    const openDemo=document.getElementById('openDemo');
-    const closeDemo=document.getElementById('closeDemo');
-    const demoModal=document.getElementById('demoModal');
-    const demoVideo=document.getElementById('demoVideo');
-    const baseSrc = demoVideo.getAttribute('src').replace(/(&|\?)autoplay=\d/,'');
-    openDemo?.addEventListener('click',(e)=>{
-      e.preventDefault();
-      demoModal.classList.remove('hidden');
-      demoVideo.setAttribute('src', baseSrc + (baseSrc.includes('?') ? '&' : '?') + 'autoplay=1');
-      window.plausible && plausible('Open Demo');
-    });
-    closeDemo?.addEventListener('click',()=>{
-      demoModal.classList.add('hidden');
-      demoVideo.setAttribute('src', baseSrc);
-    });
-  </script>
-  
-  <script>
-    document.documentElement.style.scrollBehavior = 'smooth';
-    function scrollToId(id) {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  
-    window.addEventListener('DOMContentLoaded', () => {
-      const df = document.querySelector('df-messenger');
-      if (!df) return;
-  
-      // 1) 칩 클릭(텍스트 전송 전) 시점에 바로 처리
-      df.addEventListener('df-chip-clicked', (e) => {
-        const t = (e.detail?.chip?.text || '').trim().toLowerCase();
-        if (t === 'show pricing' || t === 'see pricing' || t === 'go to pricing') scrollToId('pricing');
-        if (t === 'book a demo') scrollToId('demo');
-        if (t === 'leave contact' || t === 'contact form') scrollToId('contact');
-      });
-  
-      // 2) 사용자가 직접 타이핑했을 때도 처리
-      df.addEventListener('df-request-sent', (e) => {
-        const t = (e.detail?.requestBody?.queryInput?.text?.text || '').trim().toLowerCase();
-        if (!t) return;
-        if (t === 'show pricing' || t === 'see pricing' || t === 'go to pricing') scrollToId('pricing');
-        if (t === 'book a demo') scrollToId('demo');
-        if (t === 'leave contact' || t === 'contact form') scrollToId('contact');
-      });
-    });
-  </script>
-
-
-  
-  <df-messenger
-      intent="WELCOME"
-      chat-title="CRM Assistant"
-      agent-id="517f3121-6307-47f4-9983-811e2d648b61"
-      language-code="en"
-    ></df-messenger>
-  
 </body>
 </html>
