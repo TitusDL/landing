@@ -806,6 +806,9 @@
   .h1-dim{background:linear-gradient(180deg,#fff,rgba(255,255,255,0.5)); -webkit-background-clip:text; background-clip:text; color:transparent}
   .hero-sub{color:var(--ink-soft)}
   .hero-fine{color:var(--ink-faint)}
+  .hero-offer{margin:22px auto 0; max-width:560px; padding:14px 18px; border-radius:14px; font-size:1rem; line-height:1.5; color:var(--ink-soft);
+    background:rgba(226,194,117,0.08); box-shadow:inset 3px 0 0 var(--gold), inset 0 0 0 1px rgba(226,194,117,0.28)}
+  .hero-offer strong{display:block; font-size:1.15rem; color:var(--gold); margin-bottom:2px}
   .hero-stats b{color:#fff}
   .hero-stats li{border-left-color:rgba(255,255,255,0.14)}
   .hero-stats span{color:var(--ink-soft)}
@@ -912,6 +915,7 @@
   .promo-main{font-size:clamp(1.05rem, 1.9vw, 1.3rem); letter-spacing:-0.01em}
   .promo-main b{font-weight:700; background:linear-gradient(180deg,#fff,#f6e7bf); -webkit-background-clip:text; background-clip:text; color:transparent}
   .promo-sub{color:#d2d2d7}
+  .promo-card{color:#fff; font-weight:700}
   .promo-num{display:inline-block; font-size:1.7em; line-height:1; font-weight:800; letter-spacing:-0.03em; vertical-align:-0.12em; padding:0 2px;
     background:linear-gradient(180deg,#fffdf5 0%,#f6e7bf 35%,#d9b56e 70%,#a87d34 100%); -webkit-background-clip:text; background-clip:text; color:transparent; filter:drop-shadow(0 0 12px rgba(226,194,117,0.45))}
   .promo-days{font-size:0.9rem; font-weight:600; color:#ffb45c; font-variant-numeric:tabular-nums}
@@ -930,7 +934,7 @@
 <div class="promo">
   <div class="promo-in">
     <span class="promo-live"><span class="promo-dot" aria-hidden="true"></span>Premium</span>
-    <span class="promo-main"><b>Only <span class="promo-num">27</span> early members. First come, first served.</b> <span class="promo-sub">Pro: free for all through Dec 31.</span></span>
+    <span class="promo-main"><b>Only <span class="promo-num">27</span> early members. First come, first served.</b> <span class="promo-sub">Pro: free through Dec 31. <strong class="promo-card">No card until January.</strong></span></span>
     <span class="promo-days js-days-only" hidden></span>
     <a href="mailto:info@titusdl.com" class="promo-btn js-waitlist">Claim my Premium spot<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5"/></svg></a>
   </div>
@@ -965,11 +969,12 @@
         <p class="hero-kicker">You built your book one client at a time.</p>
         <h1>Your Medicare clients <span class="h1-dim">are someone else&rsquo;s leads.</span></h1>
         <p class="hero-sub">Every client about to turn 65. Every AEP. Every Medigap window about to close. TitusDL CRM keeps watch over the book you spent years building, and tells your phone first, months before another agent calls.</p>
+        <p class="hero-offer"><strong>Set it up after AEP. Run OEP on it.</strong> Free through Dec 31 while we load your book. No card until January.</p>
         <div class="ctas">
           <a href="mailto:info@titusdl.com" class="btn btn-primary btn-lg js-start">Put my book in it, free</a>
           <a href="#pricing" class="link-more">See pricing <span aria-hidden="true">›</span></a>
         </div>
-        <p class="hero-fine">Free through Dec 31, 2026. We load your book for you within 3 days. No card to join.</p>
+        <p class="hero-fine">We load your book for you within 3 days.</p>
       </div>
 
       <div class="hero-visual">
