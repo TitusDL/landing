@@ -343,6 +343,9 @@
   }
   .pricing-lede strong{color:var(--accent)}
   .pricing-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:22px; align-items:stretch; max-width:860px; margin:0 auto}
+  .price-card.custom{grid-column:1/-1}
+  .price-card.custom > .btn{align-self:center; min-width:280px}
+  @media (max-width:640px){.price-card.custom > .btn{align-self:stretch; min-width:0}}
   @media (max-width:1000px){.pricing-grid{grid-template-columns:1fr; max-width:520px; margin:0 auto}}
   .price-card > .btn{margin-top:auto; justify-content:center}
   .price-card.premium{
@@ -865,6 +868,9 @@
   .price-card.premium .tag{background:#efeff1; color:var(--ink-faint)}
   .price-card.premium li.hl{color:var(--ink) !important}
   .price-card.premium .btn-gold{background:#1d1d1f; color:#fff}
+  .price-card.custom .tag{background:#efeff1; color:var(--ink-faint)}
+  .price-card.custom li.hl{color:var(--ink) !important}
+  .price-card.custom .btn-primary{background:#1d1d1f; color:#fff}
   .price-card.premium .one-line-roi{background:#f5f5f7}
   main > section:not(.hero) .shot{box-shadow:0 30px 70px rgba(0,0,0,0.14), 0 0 0 1px rgba(0,0,0,0.06)}
   footer.site{background:#f5f5f7; color:var(--ink-faint)}
@@ -1147,7 +1153,7 @@
         <h2>Free for the rest of 2026. Tell us what your book needs.</h2>
         <p>Commercial launch is January 1, 2027. Until then, every agent who joins uses Pro at $0. Join in 2026 and you keep the launch price for all of 2027.</p>
       </div>
-      <p class="pricing-lede">Pro: <strong>it reaches out first.</strong> Premium: <strong>it fills itself in.</strong></p>
+      <p class="pricing-lede">Pro: <strong>it reaches out first.</strong> Premium: <strong>it fills itself in.</strong> Custom: <strong>built around how you work.</strong></p>
       <p class="needs-note glass">
         <strong>2026 is for your feedback.</strong> The workflow behind TitusDL CRM ran a working agency&rsquo;s book for a
         year and a half. We rebuilt it on a new platform, and before launch we want to hear what your book needs: a field,
@@ -1190,6 +1196,20 @@
             <li><span class="check" aria-hidden="true">✓</span> AI features, as each one ships</li>
           </ul>
           <a href="mailto:info@titusdl.com" class="btn btn-gold js-waitlist">Claim one of 27 Premium spots</a>
+        </div>
+        <div class="price-card glass custom">
+          <h3>Custom <span class="tag">By request</span></h3>
+          <div class="amount">Quoted <span>/ per project</span></div>
+          <p class="price-ends">Tell us the job. We reply with a plan and a price before any work starts.</p>
+          <p class="one-line-roi">Name the work you still do by hand. We help you automate it.</p>
+          <ul>
+            <li><span class="check" aria-hidden="true">✓</span> Runs on top of Pro or Premium</li>
+            <li class="hl"><span class="check" aria-hidden="true">✓</span> Your CRM set up one-on-one: your own fields, reports and alerts</li>
+            <li><span class="check" aria-hidden="true">✓</span> AI automation beyond the CRM: we look at how your office works and guide you through automating it</li>
+            <li class="note">For example: commission statements, follow-up emails, intake forms.</li>
+            <li><span class="check" aria-hidden="true">✓</span> Setup over a video call</li>
+          </ul>
+          <a href="mailto:info@titusdl.com" class="btn btn-primary js-start" data-plan="Custom">Tell us what to automate</a>
         </div>
       </div>
       <p class="lock-note">Join by December 31, 2026: free until then, and your launch price for all of 2027.</p>
@@ -1370,6 +1390,7 @@
     <fieldset class="join-plan"><legend>Plan</legend>
       <label><input type="radio" name="plan" value="Pro" checked> Pro <small>free now, $59.99 in 2027</small></label>
       <label><input type="radio" name="plan" value="Premium"> Premium <small>27 early members only, $99.99 in 2027</small></label>
+      <label><input type="radio" name="plan" value="Custom"> Custom <small>quoted per project</small></label>
     </fieldset>
     <label>Anything we should know? <small>(optional)</small><textarea name="note" rows="3" maxlength="1000" placeholder="Where your clients are today: Excel, Google Sheets, another CRM"></textarea></label>
     <label class="join-hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
@@ -1416,7 +1437,8 @@
     var open = function (plan) {
       form.hidden = false; dlg.querySelector(".join-done").hidden = true;
       form.querySelector(".join-err").hidden = true;
-      form.querySelector('input[name="plan"][value="' + (plan === "Premium" ? "Premium" : "Pro") + '"]').checked = true;
+      form.querySelector('input[name="plan"][value="' + (plan === "Premium" || plan === "Custom" ? plan : "Pro") + '"]').checked = true;
+      form.querySelector('textarea[name="note"]').placeholder = plan === "Custom" ? "What you'd like set up or automated" : "Where your clients are today: Excel, Google Sheets, another CRM";
       dlg.showModal(); form.querySelector('input[name="name"]').focus();
     };
     document.querySelectorAll(".js-start,.js-waitlist").forEach(function (a) {
