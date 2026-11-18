@@ -653,7 +653,7 @@
   .price-card.premium .price-ends{color:var(--ink-faint)}
   .price-card.premium .price-ends strong{color:var(--ink)}
   .price-card.premium .check{color:var(--accent)}
-  .price-card.premium .tag{background:#f5f5f7; color:var(--ink-faint)}
+  .price-card.premium .tag{background:#b4881a; color:#fff}
   .price-card.premium .one-line-roi{background:#f5f5f7; border:0}
   .btn-gold{background:var(--accent); color:#fff; box-shadow:none}
   .one-line-roi{border:0}
@@ -837,7 +837,7 @@
   .price-card.featured .btn{background:#fff !important; color:#000 !important}
   .price-card.premium,main .price-card.premium{color:var(--ink)}
   .price-card.premium .price-ends strong{color:#fff}
-  .price-card.premium .tag{background:rgba(255,255,255,0.10); color:var(--ink-soft)}
+  .price-card.premium .tag{background:#e2c275; color:#000}
   .price-card.premium .one-line-roi{background:rgba(255,255,255,0.06)}
   .price-card li.hl{background:rgba(226,194,117,0.14) !important; color:#fff !important}
   .btn-gold{background:#fff; color:#000}
@@ -865,7 +865,7 @@
   main > section:not(.hero) .pricing-lede,main > section:not(.hero) details.faq-item summary{color:var(--ink)}
   main > section:not(.hero) .alert-when{color:#bf4800}
   .price-card.premium .price-ends strong{color:var(--ink)}
-  .price-card.premium .tag{background:#efeff1; color:var(--ink-faint)}
+  .price-card.premium .tag{background:#b4881a; color:#fff}
   .price-card.premium li.hl{color:var(--ink) !important}
   .price-card.premium .btn-gold{background:#1d1d1f; color:#fff}
   .price-card.custom .tag{background:#efeff1; color:var(--ink-faint)}
@@ -972,15 +972,15 @@
     <object class="hero-ribbon" type="image/svg+xml" data="assets/brand/horizon.svg" aria-hidden="true" tabindex="-1"></object>
     <div class="container">
       <div class="hero-head">
-        <p class="hero-kicker">You built your book one client at a time.</p>
-        <h1>Your Medicare clients <span class="h1-dim">are someone else&rsquo;s leads.</span></h1>
-        <p class="hero-sub">Every client about to turn 65. Every AEP. Every Medigap window about to close. TitusDL CRM keeps watch over the book you spent years building, and tells your phone first, months before another agent calls.</p>
+        <p class="hero-kicker">AEP closes December 7.</p>
+        <h1>You signed them this AEP. <span class="h1-dim">Keep them for every one after.</span></h1>
+        <p class="hero-sub">The clients you enrolled this fall are spread across carrier portals, paper applications and sticky notes. Put them in TitusDL CRM now and 2027 starts with every one on file: the plan, the dates, the follow-ups, and an alert on your phone months before another agent calls them.</p>
         <p class="hero-offer"><strong>Set it up after AEP. Run OEP on it.</strong> Free through Dec 31 while we load your book. No card until January.</p>
         <div class="ctas">
-          <a href="mailto:info@titusdl.com" class="btn btn-primary btn-lg js-start">Put my book in it, free</a>
+          <a href="mailto:info@titusdl.com" class="btn btn-primary btn-lg js-start" data-plan="Premium">Load my AEP clients, free</a>
           <a href="#pricing" class="link-more">See pricing <span aria-hidden="true">›</span></a>
         </div>
-        <p class="hero-fine">We load your book for you within 3 days.</p>
+        <p class="hero-fine">Send us your client list and we load it within 3 days. On Premium, upload the applications and the plans and dates fill themselves in.</p>
       </div>
 
       <div class="hero-visual">
@@ -1181,7 +1181,7 @@
       <p class="pricing-lede">Pro: <strong>it reaches out first.</strong> Premium: <strong>it fills itself in.</strong> Custom: <strong>one-on-one consulting.</strong></p>
       <div class="pricing-grid">
         <div class="price-card featured">
-          <h3>Pro <span class="tag">Recommended</span></h3>
+          <h3>Pro</h3>
           <span class="launch-ribbon">Launch special</span>
           <div class="price-was"><s aria-label="Regular price $99.99">$99.99</s><span class="price-save">Save 40%</span></div>
           <div class="amount sale">$59.99 <span>/ user / month</span></div>
@@ -1201,7 +1201,7 @@
           <a href="mailto:info@titusdl.com" class="btn btn-primary js-start" data-plan="Pro" style="background:#fff;color:var(--accent)">Join early access for Pro</a>
         </div>
         <div class="price-card premium">
-          <h3>Premium <span class="tag">Coming soon</span></h3>
+          <h3>Premium <span class="tag">Recommended</span></h3>
           <span class="launch-ribbon">Early member price</span>
           <div class="price-was"><s aria-label="Regular price $199.99">$199.99</s><span class="price-save">Save 50%</span></div>
           <div class="amount sale">$99.99 <span>/ user / month</span></div>
@@ -1285,8 +1285,8 @@
       <label>Clients in your book<select name="book"><option value="">Choose</option><option>Under 100</option><option>100-300</option><option>300-1,000</option><option>Over 1,000</option></select></label>
     </div>
     <fieldset class="join-plan"><legend>Plan</legend>
-      <label><input type="radio" name="plan" value="Pro" checked> Pro <small>free now, $59.99 in 2027</small></label>
-      <label><input type="radio" name="plan" value="Premium"> Premium <small>27 early members only, $99.99 in 2027</small></label>
+      <label><input type="radio" name="plan" value="Pro"> Pro <small>free now, $59.99 in 2027</small></label>
+      <label><input type="radio" name="plan" value="Premium" checked> Premium <small>27 early members only, $99.99 in 2027</small></label>
       <label><input type="radio" name="plan" value="Custom"> Custom <small>quoted per project</small></label>
     </fieldset>
     <label>Anything we should know? <small>(optional)</small><textarea name="note" rows="3" maxlength="1000" placeholder="Where your clients are today: Excel, Google Sheets, another CRM"></textarea></label>
@@ -1334,7 +1334,7 @@
     var open = function (plan) {
       form.hidden = false; dlg.querySelector(".join-done").hidden = true;
       form.querySelector(".join-err").hidden = true;
-      form.querySelector('input[name="plan"][value="' + (plan === "Premium" || plan === "Custom" ? plan : "Pro") + '"]').checked = true;
+      form.querySelector('input[name="plan"][value="' + (plan === "Pro" || plan === "Custom" ? plan : "Premium") + '"]').checked = true;
       form.querySelector('textarea[name="note"]').placeholder = plan === "Custom" ? "What you'd like set up or automated" : "Where your clients are today: Excel, Google Sheets, another CRM";
       dlg.showModal(); form.querySelector('input[name="name"]').focus();
     };
